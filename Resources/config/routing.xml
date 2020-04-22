@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="fos_rest.routing.loader.directory" class="FOS\RestRoutingBundle\Routing\Loader\DirectoryRouteLoader" public="false">
+            <argument type="service" id="file_locator" />
+            <argument type="service" id="fos_rest.routing.loader.processor" />
+            <tag name="routing.loader" />
+        </service>
+
+        <service id="fos_rest.routing.loader.controller" class="FOS\RestRoutingBundle\Routing\Loader\RestRouteLoader" public="false">
+            <argument type="service" id="service_container" />
+            <argument type="service" id="file_locator" />
+            <argument type="service" id="fos_rest.routing.loader.reader.controller" />
+            <tag name="routing.loader" />
+        </service>
+
+        <service id="fos_rest.routing.loader.processor" class="FOS\RestRoutingBundle\Routing\Loader\RestRouteProcessor" public="false" />
+
+        <service id="fos_rest.routing.loader.yaml_collection" class="FOS\RestBundle\Routing\Loader\RestYamlCollectionLoader" public="false">
+            <argument type="service" id="file_locator" />
+            <argument type="service" id="fos_rest.routing.loader.processor" />
+            <argument /> <!-- include format -->
+            <argument>%fos_rest.formats%</argument>
+            <argument /> <!-- default format -->
+            <tag name="routing.loader" />
+        </service>
+
+        <service id="fos_rest.routing.loader.xml_collection" class="FOS\RestRoutingBundle\Routing\Loader\RestXmlCollectionLoader" public="false">
+            <argument type="service" id="file_locator" />
+            <argument type="service" id="fos_rest.routing.loader.processor" />
+            <argument /> <!-- include format -->
+            <argument>%fos_rest.formats%</argument>
+            <argument /> <!-- default format -->
+            <tag name="routing.loader" />
+        </service>
+
+        <service id="fos_rest.routing.loader.reader.controller" class="FOS\RestRoutingBundle\Routing\Loader\Reader\RestControllerReader" public="false">
+            <argument type="service" id="fos_rest.routing.loader.reader.action" />
+            <argument type="service" id="fos_rest.routing.annotation_reader" />
+        </service>
+
+        <service id="fos_rest.routing.loader.reader.action" class="FOS\RestRoutingBundle\Routing\Loader\Reader\RestActionReader" public="false">
+            <argument type="service" id="fos_rest.routing.annotation_reader" />
+            <argument type="service" id="fos_rest.request.param_fetcher.reader" />
+            <argument type="service" id="fos_rest.routing.inflector" />
+            <argument /> <!-- include format -->
+            <argument>%fos_rest.formats%</argument>
+            <argument /> <!-- prefix_methods bool -->
+        </service>
+
+        <service id="fos_rest.routing.inflector.doctrine" class="FOS\RestRoutingBundle\Inflector\DoctrineInflector" public="false" />
+    </services>
+
+</container>

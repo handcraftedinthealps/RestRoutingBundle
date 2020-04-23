@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace FOS\RoutingBundle;
+namespace FOS\RestRoutingBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

@@ -20,7 +20,7 @@
 
         <service id="fos_rest.routing.loader.processor" class="FOS\RestRoutingBundle\Routing\Loader\RestRouteProcessor" public="false" />
 
-        <service id="fos_rest.routing.loader.yaml_collection" class="FOS\RestBundle\Routing\Loader\RestYamlCollectionLoader" public="false">
+        <service id="fos_rest.routing.loader.yaml_collection" class="FOS\RestRoutingBundle\Routing\Loader\RestYamlCollectionLoader" public="false">
             <argument type="service" id="file_locator" />
             <argument type="service" id="fos_rest.routing.loader.processor" />
             <argument /> <!-- include format -->

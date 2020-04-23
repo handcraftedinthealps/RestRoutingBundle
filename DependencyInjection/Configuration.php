@@ -56,7 +56,7 @@ final class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('annotation_reader')->defaultValue('annotation_reader')->end()
-                        ->scalarNode('inflector')->defaultValue('fos_rest.inflector.doctrine')->end()
+                        ->scalarNode('inflector')->defaultValue('fos_rest.routing.inflector.doctrine')->end()
                     ->end()
                 ->end()
             ->end()

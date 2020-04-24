@@ -58,6 +58,7 @@ class FOSRestRoutingExtensionTest extends TestCase
         $this->extension = new FOSRestRoutingExtension();
         $this->includeFormat = true;
         $this->defaultFormat = null;
+        $this->formats = ['json' => true, 'xml' => true];
     }
 
     public function tearDown(): void
@@ -82,6 +83,7 @@ class FOSRestRoutingExtensionTest extends TestCase
         $this->assertValidRestFileLoader(
             $this->container->getDefinition($yamlCollectionLoaderDefinitionName),
             false,
+            $this->formats,
             $this->defaultFormat
         );
 
@@ -89,6 +91,7 @@ class FOSRestRoutingExtensionTest extends TestCase
         $this->assertValidRestFileLoader(
             $this->container->getDefinition($xmlCollectionLoaderDefinitionName),
             false,
+            $this->formats,
             $this->defaultFormat
         );
     }
@@ -110,6 +113,7 @@ class FOSRestRoutingExtensionTest extends TestCase
         $this->assertValidRestFileLoader(
             $this->container->getDefinition($yamlCollectionLoaderDefinitionName),
             $this->includeFormat,
+            $this->formats,
             'xml'
         );
 
@@ -117,6 +121,41 @@ class FOSRestRoutingExtensionTest extends TestCase
         $this->assertValidRestFileLoader(
             $this->container->getDefinition($xmlCollectionLoaderDefinitionName),
             $this->includeFormat,
+            $this->formats,
+            'xml'
+        );
+    }
+
+    public function testFormats()
+    {
+        $this->extension->load(
+            [
+                'fos_rest_routing' => [
+                    'routing_loader' => [
+                        'default_format' => 'xml',
+                        'formats' => [
+                            'xml' => false,
+                            'json' => true,
+                        ],
+                    ],
+                ],
+            ],
+            $this->container
+        );
+
+        $yamlCollectionLoaderDefinitionName = 'fos_rest.routing.loader.yaml_collection';
+        $this->assertValidRestFileLoader(
+            $this->container->getDefinition($yamlCollectionLoaderDefinitionName),
+            $this->includeFormat,
+            ['json' => true],
+            'xml'
+        );
+
+        $xmlCollectionLoaderDefinitionName = 'fos_rest.routing.loader.xml_collection';
+        $this->assertValidRestFileLoader(
+            $this->container->getDefinition($xmlCollectionLoaderDefinitionName),
+            $this->includeFormat,
+            ['json' => true],
             'xml'
         );
     }
@@ -126,11 +165,13 @@ class FOSRestRoutingExtensionTest extends TestCase
      *
      * @param Definition $loader        loader definition
      * @param bool       $includeFormat whether or not the requested view format must be included in the route path
+     * @param string[]   $formats       supported view formats
      * @param string     $defaultFormat default view format
      */
     private function assertValidRestFileLoader(
         Definition $loader,
         $includeFormat,
+        $formats,
         $defaultFormat
     ) {
         $locatorRef = new Reference('file_locator');
@@ -141,6 +182,7 @@ class FOSRestRoutingExtensionTest extends TestCase
         $this->assertEquals($locatorRef, $arguments[0]);
         $this->assertEquals($processorRef, $arguments[1]);
         $this->assertSame($includeFormat, $arguments[2]);
+        $this->assertEquals($formats, $arguments[3]);
         $this->assertSame($defaultFormat, $arguments[4]);
         $this->assertArrayHasKey('routing.loader', $loader->getTags());
     }

@@ -12,7 +12,7 @@
 namespace FOS\RestRoutingBundle\Tests\Fixtures\Controller;
 
 use FOS\RestBundle\Controller\ControllerTrait;
-use FOS\RestBundle\Routing\ClassResourceInterface;
+use FOS\RestRoutingBundle\Routing\ClassResourceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class InformationController extends AbstractController implements ClassResourceInterface

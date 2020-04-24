@@ -12,10 +12,10 @@
 namespace FOS\RestRoutingBundle\Tests\Fixtures\Controller;
 
 use FOS\RestBundle\Controller\AbstractFOSRestController;
-use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestRoutingBundle\Controller\Annotations\RouteResource;
 
 /**
- *  @Rest\RouteResource("Article", pluralize=false)
+ *  @RouteResource("Article", pluralize=false)
  */
 class AnnotatedNonPluralizedArticleController extends AbstractFOSRestController
 {

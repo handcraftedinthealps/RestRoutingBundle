@@ -24,7 +24,7 @@
             <argument type="service" id="file_locator" />
             <argument type="service" id="fos_rest.routing.loader.processor" />
             <argument /> <!-- include format -->
-            <argument>%fos_rest.formats%</argument>
+            <argument /> <!-- formats -->
             <argument /> <!-- default format -->
             <tag name="routing.loader" />
         </service>
@@ -33,7 +33,7 @@
             <argument type="service" id="file_locator" />
             <argument type="service" id="fos_rest.routing.loader.processor" />
             <argument /> <!-- include format -->
-            <argument>%fos_rest.formats%</argument>
+            <argument /> <!-- formats -->
             <argument /> <!-- default format -->
             <tag name="routing.loader" />
         </service>
@@ -48,7 +48,7 @@
             <argument type="service" id="fos_rest.request.param_fetcher.reader" />
             <argument type="service" id="fos_rest.routing.inflector" />
             <argument /> <!-- include format -->
-            <argument>%fos_rest.formats%</argument>
+            <argument /> <!-- formats -->
             <argument /> <!-- prefix_methods bool -->
         </service>
 

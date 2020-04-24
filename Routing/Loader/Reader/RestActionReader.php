@@ -12,7 +12,7 @@
 namespace FOS\RestRoutingBundle\Routing\Loader\Reader;
 
 use Doctrine\Common\Annotations\Reader;
-use FOS\RestBundle\Controller\Annotations\Route as RouteAnnotation;
+use Symfony\Component\Routing\Annotation\Route as RouteAnnotation;
 use FOS\RestRoutingBundle\Inflector\InflectorInterface;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Request\ParamReaderInterface;
@@ -67,7 +67,7 @@ class RestActionReader
     private $availableConventionalActions = ['new', 'edit', 'remove'];
     private $hasMethodPrefix;
 
-    public function __construct(Reader $annotationReader, ParamReaderInterface $paramReader, InflectorInterface $inflector, bool $includeFormat, array $formats = [], bool $hasMethodPrefix = true)
+    public function __construct(Reader $annotationReader, ?ParamReaderInterface $paramReader, InflectorInterface $inflector, bool $includeFormat, array $formats = [], bool $hasMethodPrefix = true)
     {
         $this->annotationReader = $annotationReader;
         $this->paramReader = $paramReader;
@@ -390,8 +390,11 @@ class RestActionReader
      */
     private function getMethodArguments(\ReflectionMethod $method): array
     {
-        // ignore all query params
-        $params = $this->paramReader->getParamsFromMethod($method);
+        $params = [];
+        if ($this->paramReader) {
+            // ignore all query params
+            $params = $this->paramReader->getParamsFromMethod($method);
+        }
 
         // check if a parameter is coming from the request body
         $ignoreParameters = [];
@@ -421,7 +424,12 @@ class RestActionReader
                 continue;
             }
 
-            $argumentClass = $argument->getClass();
+            try {
+                $argumentClass = $argument->getClass();
+            } catch (\ReflectionException $e) {
+                $argumentClass = null;
+            }
+
             if ($argumentClass) {
                 $className = $argumentClass->getName();
                 foreach ($ignoreClasses as $class) {
@@ -541,10 +549,16 @@ class RestActionReader
 
     private function readClassAnnotation(\ReflectionClass $reflectionClass, string $annotationName): ?RouteAnnotation
     {
-        $annotationClass = "FOS\\RestBundle\\Controller\\Annotations\\$annotationName";
+        $annotationClass = "FOS\\RestRoutingBundle\\Controller\\Annotations\\$annotationName";
 
         if ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, $annotationClass)) {
             return $annotation;
+        }
+
+        $oldAnnotationClass = "FOS\\RestBundle\\Controller\\Annotations\\$annotationName";
+
+        if ($oldAnnotation = $this->annotationReader->getClassAnnotation($reflectionClass, $oldAnnotationClass)) {
+            return $oldAnnotation;
         }
 
         return null;
@@ -552,14 +566,19 @@ class RestActionReader
 
     private function readMethodAnnotation(\ReflectionMethod $reflectionMethod, string $annotationName): ?RouteAnnotation
     {
-        $annotationClass = "FOS\\RestBundle\\Controller\\Annotations\\$annotationName";
+        $annotationClass = "FOS\\RestRoutingBundle\\Controller\\Annotations\\$annotationName";
+        $oldAnnotationClass = "FOS\\RestBundle\\Controller\\Annotations\\$annotationName";
 
-        if (!class_exists($annotationClass)) {
-            return null;
+        if (class_exists($annotationClass)) {
+            if ($annotation = $this->annotationReader->getMethodAnnotation($reflectionMethod, $annotationClass)) {
+                return $annotation;
+            }
         }
 
-        if ($annotation = $this->annotationReader->getMethodAnnotation($reflectionMethod, $annotationClass)) {
-            return $annotation;
+        if (class_exists($oldAnnotationClass)
+            && $oldAnnotation = $this->annotationReader->getMethodAnnotation($reflectionMethod, $oldAnnotationClass)
+        ) {
+            return $oldAnnotation;
         }
 
         return null;
@@ -571,11 +590,12 @@ class RestActionReader
     private function readMethodAnnotations(\ReflectionMethod $reflectionMethod, string $annotationName): array
     {
         $annotations = [];
-        $annotationClass = "FOS\\RestBundle\\Controller\\Annotations\\$annotationName";
+        $annotationClass = "FOS\\RestRoutingBundle\\Controller\\Annotations\\$annotationName";
+        $oldAnnotationClass = "FOS\\RestBundle\\Controller\\Annotations\\$annotationName";
 
         if ($annotations_new = $this->annotationReader->getMethodAnnotations($reflectionMethod)) {
             foreach ($annotations_new as $annotation) {
-                if ($annotation instanceof $annotationClass) {
+                if ($annotation instanceof $annotationClass || $annotation instanceof $oldAnnotationClass) {
                     $annotations[] = $annotation;
                 }
             }

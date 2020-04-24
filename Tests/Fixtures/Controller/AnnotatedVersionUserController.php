@@ -11,7 +11,7 @@
 
 namespace FOS\RestRoutingBundle\Tests\Fixtures\Controller;
 
-use FOS\RestBundle\Controller\Annotations\Version;
+use FOS\RestRoutingBundle\Controller\Annotations\Version;
 use FOS\RestBundle\Controller\Annotations\Get;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 

@@ -11,27 +11,14 @@
 
 namespace FOS\RestRoutingBundle\Controller\Annotations;
 
-use FOS\RestBundle\Controller\Annotations\RouteResource as OldRouteResource;
-
-if (!class_exists(OldRouteResource::class)) {
-    class_alias(RouteResource::class, OldRouteResource::class);
-}
+use Doctrine\Common\Annotations\Annotation;
 
 /**
- * RouteResource annotation class.
+ * NamePrefix Route annotation class.
  *
  * @Annotation
  * @Target("CLASS")
  */
-class RouteResource
+class NamePrefix extends Annotation
 {
-    /**
-     * @var string required
-     */
-    public $resource;
-
-    /**
-     * @var bool
-     */
-    public $pluralize = true;
 }

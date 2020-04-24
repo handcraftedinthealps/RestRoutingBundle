@@ -12,9 +12,15 @@
 namespace FOS\RestRoutingBundle\Routing\Loader\Reader;
 
 use Doctrine\Common\Annotations\Reader;
-use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Routing\ClassResourceInterface as OldClassResourceInterface;
 use FOS\RestRoutingBundle\Controller\Annotations\RouteResource;
+use FOS\RestBundle\Controller\Annotations\RouteResource as OldRouteResource;
+use FOS\RestRoutingBundle\Controller\Annotations\Prefix;
+use FOS\RestBundle\Controller\Annotations\Prefix as OldPrefix;
+use FOS\RestRoutingBundle\Controller\Annotations\Version;
+use FOS\RestBundle\Controller\Annotations\Version as OldVersion;
+use FOS\RestRoutingBundle\Controller\Annotations\NamePrefix;
+use FOS\RestBundle\Controller\Annotations\NamePrefix as OldNamePrefix;
 use FOS\RestRoutingBundle\Routing\ClassResourceInterface;
 use FOS\RestRoutingBundle\Routing\RestRouteCollection;
 use Symfony\Component\Config\Resource\FileResource;
@@ -48,29 +54,38 @@ class RestControllerReader
         $collection->addResource(new FileResource($reflectionClass->getFileName()));
 
         // read prefix annotation
-        if ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, Annotations\Prefix::class)) {
+        if ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, Prefix::class)) {
+            $this->actionReader->setRoutePrefix($annotation->value);
+        } elseif ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, OldPrefix::class))
+        {
             $this->actionReader->setRoutePrefix($annotation->value);
         }
 
         // read name-prefix annotation
-        if ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, Annotations\NamePrefix::class)) {
+        if ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, NamePrefix::class)) {
+            $this->actionReader->setNamePrefix($annotation->value);
+        } elseif ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, OldNamePrefix::class)) {
             $this->actionReader->setNamePrefix($annotation->value);
         }
 
         // read version annotation
-        if ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, Annotations\Version::class)) {
+        if ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, Version::class)) {
+            $this->actionReader->setVersions($annotation->value);
+        } elseif ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, OldVersion::class)) {
             $this->actionReader->setVersions($annotation->value);
         }
 
         $resource = [];
         // read route-resource annotation
-        if ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, Annotations\RouteResource::class)) {
+        if ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, RouteResource::class)) {
             $resource = explode('_', $annotation->resource);
             $this->actionReader->setPluralize($annotation->pluralize);
-        } elseif ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, RouteResource::class)) {
+        } elseif ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, OldRouteResource::class)) {
             $resource = explode('_', $annotation->resource);
             $this->actionReader->setPluralize($annotation->pluralize);
-        } elseif ($reflectionClass->implementsInterface(ClassResourceInterface::class) || $reflectionClass->implementsInterface(OldClassResourceInterface::class)) {
+        } elseif ($reflectionClass->implementsInterface(ClassResourceInterface::class)
+            || $reflectionClass->implementsInterface(OldClassResourceInterface::class)
+        ) {
             $resource = preg_split(
                 '/([A-Z][^A-Z]*)Controller/',
                 $reflectionClass->getShortName(),

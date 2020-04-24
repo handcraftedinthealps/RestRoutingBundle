@@ -20,4 +20,4 @@ in the `installation chapter`_ of the Composer documentation.
 
         // config/bundles.php
 
-        FOS\RestRoutingBundle\FOSRoutingRestBundle::class => ['all' => true],
+        FOS\RestRoutingBundle\FOSRestRoutingBundle::class => ['all' => true],

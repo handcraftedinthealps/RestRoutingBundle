@@ -12,7 +12,6 @@
 namespace FOS\RestRoutingBundle\Tests\Routing\Loader;
 
 use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationRegistry;
 use FOS\RestRoutingBundle\Inflector\DoctrineInflector;
 use FOS\RestBundle\Request\ParamReader;
 use FOS\RestRoutingBundle\Routing\Loader\Reader\RestActionReader;
@@ -74,7 +73,10 @@ abstract class LoaderTest extends TestCase
             ->getMock();
 
         $annotationReader = $this->getAnnotationReader();
-        $paramReader = new ParamReader($annotationReader);
+        $paramReader = null;
+        if (class_exists(ParamReader::class)) {
+            $paramReader = new ParamReader($annotationReader);
+        }
         $inflector = new DoctrineInflector();
 
         $ar = new RestActionReader($annotationReader, $paramReader, $inflector, true, $formats, $hasMethodPrefix);

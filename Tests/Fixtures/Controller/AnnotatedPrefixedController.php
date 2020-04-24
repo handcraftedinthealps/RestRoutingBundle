@@ -11,7 +11,7 @@
 
 namespace FOS\RestRoutingBundle\Tests\Fixtures\Controller;
 
-use FOS\RestBundle\Controller\Annotations\Prefix;
+use FOS\RestRoutingBundle\Controller\Annotations\Prefix;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 

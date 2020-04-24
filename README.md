@@ -13,6 +13,21 @@ Installation
 
 All the installation instructions are located in the [documentation](Resources/doc/1-setting_up_the_bundle.rst).
 
+Switching from FOSRestBundle
+-----------------------------
+
+If you did before using the FOSRestBundle which removed the auto route generation the switch is easy:
+
+```diff
+// Replace ClassResourceInterface
+-use FOS\RestBundle\Routing\ClassResourceInterface;
++use FOS\RestRoutingBundle\Routing\ClassResourceInterface;
+
+// Replace RouteResource
+-use FOS\RestBundle\Controller\Annotations\RouteResource;
++use FOS\RestRoutingBundle\Controller\Annotations\RouteResource;
+```
+
 License
 -------
 

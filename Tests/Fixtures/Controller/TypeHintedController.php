@@ -11,14 +11,14 @@
 
 namespace FOS\RestRoutingBundle\Tests\Fixtures\Controller;
 
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Routing\ClassResourceInterface;
+use FOS\RestRoutingBundle\Controller\Annotations\RouteResource;
+use FOS\RestRoutingBundle\Routing\ClassResourceInterface;
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Rest\RouteResource("Article")
+ * @RouteResource("Article")
  */
 class TypeHintedController implements ClassResourceInterface
 {

@@ -14,6 +14,9 @@ You may specify a ``default_format`` that the routing loader will use for the
     fos_rest:
         routing_loader:
             default_format: json
+            formats:
+                json: true
+                xml: true
 
 Single RESTful controller routes
 --------------------------------

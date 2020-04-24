@@ -19,7 +19,7 @@ use FOS\RestBundle\Controller\Annotations\Link;
 use FOS\RestBundle\Controller\Annotations\Lock;
 use FOS\RestBundle\Controller\Annotations\Mkcol;
 use FOS\RestBundle\Controller\Annotations\Move;
-use FOS\RestBundle\Controller\Annotations\NoRoute;
+use FOS\RestRoutingBundle\Controller\Annotations\NoRoute;
 use FOS\RestBundle\Controller\Annotations\Options;
 use FOS\RestBundle\Controller\Annotations\Patch;
 use FOS\RestBundle\Controller\Annotations\Post;

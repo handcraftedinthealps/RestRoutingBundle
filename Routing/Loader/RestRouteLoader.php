@@ -36,7 +36,7 @@ class RestRouteLoader extends Loader
         ContainerInterface $container,
         FileLocatorInterface $locator,
         RestControllerReader $controllerReader,
-        ?string $defaultFormat = 'html'
+        ?string $defaultFormat = 'json'
     ) {
         $this->container = $container;
         $this->locator = $locator;

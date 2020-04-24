@@ -11,7 +11,7 @@
 
 namespace FOS\RestRoutingBundle\Controller\Annotations;
 
-use FOS\RestBundle\Controller\Annotations\Route;
+use Symfony\Component\Routing\Annotation\Route as BaseRoute;
 
 /**
  * No Route annotation class.
@@ -19,6 +19,23 @@ use FOS\RestBundle\Controller\Annotations\Route;
  * @Annotation
  * @Target({"METHOD","CLASS"})
  */
-class NoRoute extends Route
+class NoRoute extends BaseRoute
 {
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+
+        if (!$this->getMethods()) {
+            $this->setMethods((array)$this->getMethod());
+        }
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getMethod()
+    {
+        return;
+    }
 }
+

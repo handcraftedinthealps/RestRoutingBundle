@@ -11,8 +11,17 @@
 
 namespace FOS\RestRoutingBundle;
 
+use FOS\RestRoutingBundle\DependencyInjection\CompilerPass\FormatsCompilerPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class FOSRestRoutingBundle extends Bundle
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function build(ContainerBuilder $container)
+    {
+        $container->addCompilerPass(new FormatsCompilerPass());
+    }
 }

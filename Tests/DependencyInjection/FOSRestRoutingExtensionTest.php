@@ -11,6 +11,7 @@
 
 namespace FOS\RestRoutingBundle\Tests\DependencyInjection;
 
+use FOS\RestRoutingBundle\DependencyInjection\CompilerPass\FormatsCompilerPass;
 use FOS\RestRoutingBundle\DependencyInjection\FOSRestRoutingExtension;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -29,11 +30,6 @@ class FOSRestRoutingExtensionTest extends TestCase
      * @var ContainerBuilder
      */
     private $container;
-
-    /**
-     * @var FOSRestRoutingExtension
-     */
-    private $extension;
 
     /**
      * @var bool
@@ -55,7 +51,6 @@ class FOSRestRoutingExtensionTest extends TestCase
         $this->container = new ContainerBuilder();
         $this->container->setParameter('kernel.bundles', array('JMSSerializerBundle' => true));
         $this->container->setParameter('kernel.debug', false);
-        $this->extension = new FOSRestRoutingExtension();
         $this->includeFormat = true;
         $this->defaultFormat = null;
         $this->formats = ['json' => true, 'xml' => true];
@@ -68,15 +63,14 @@ class FOSRestRoutingExtensionTest extends TestCase
 
     public function testIncludeFormatDisabled()
     {
-        $this->extension->load(
+        $this->load(
             [
                 'fos_rest_routing' => [
                     'routing_loader' => [
                         'include_format' => false,
                     ],
                 ],
-            ],
-            $this->container
+            ]
         );
 
         $yamlCollectionLoaderDefinitionName = 'fos_rest.routing.loader.yaml_collection';
@@ -98,15 +92,14 @@ class FOSRestRoutingExtensionTest extends TestCase
 
     public function testDefaultFormat()
     {
-        $this->extension->load(
+        $this->load(
             [
                 'fos_rest_routing' => [
                     'routing_loader' => [
                         'default_format' => 'xml',
                     ],
                 ],
-            ],
-            $this->container
+            ]
         );
 
         $yamlCollectionLoaderDefinitionName = 'fos_rest.routing.loader.yaml_collection';
@@ -128,7 +121,7 @@ class FOSRestRoutingExtensionTest extends TestCase
 
     public function testFormats()
     {
-        $this->extension->load(
+        $this->load(
             [
                 'fos_rest_routing' => [
                     'routing_loader' => [
@@ -139,8 +132,7 @@ class FOSRestRoutingExtensionTest extends TestCase
                         ],
                     ],
                 ],
-            ],
-            $this->container
+            ]
         );
 
         $yamlCollectionLoaderDefinitionName = 'fos_rest.routing.loader.yaml_collection';
@@ -187,8 +179,15 @@ class FOSRestRoutingExtensionTest extends TestCase
         $this->assertArrayHasKey('routing.loader', $loader->getTags());
     }
 
-    private function assertAlias($value, $key)
+    private function load(array $config): void
     {
-        $this->assertEquals($value, (string) $this->container->getAlias($key), sprintf('%s alias is correct', $key));
+        $extension = new FOSRestRoutingExtension();
+        $extension->load(
+            $config,
+            $this->container
+        );
+
+        $formatsCompilerPass = new FormatsCompilerPass();
+        $formatsCompilerPass->process($this->container);
     }
 }

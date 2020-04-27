@@ -1,22 +1,45 @@
-FOSRoutingRestBundle
-====================
+# FOSRoutingRestBundle
 
 This bundle provides the automatic route generation for the FOSRestBundle 3.0.
 
-Documentation
--------------
+## Documentation
 
 [Read the Documentation](Resources/doc)
 
-Installation
-------------
+## Installation
 
 All the installation instructions are located in the [documentation](Resources/doc/1-setting_up_the_bundle.rst).
 
-Switching from FOSRestBundle
------------------------------
+## Switching from FOSRestBundle
 
-If you did before using the FOSRestBundle which removed the auto route generation the switch is easy:
+If you did before using the FOSRestBundle which removed the auto route generation the switch is easy.
+After you did successfully install the bundle change the configuration to the new bundle:
+
+**before**
+
+```yaml
+fos_rest:
+    routing_loader:
+        default_format: 'json'
+        prefix_methods: true
+        include_format: true
+```
+
+**after**
+
+```yaml
+fos_rest_routing:
+    routing_loader:
+        default_format: 'json'
+        prefix_methods: true
+        include_format: true
+        # optional set supported formats else the configured one from fos_rest are used if installed:
+        # formats:
+        #     json: true
+        #     xml: true
+```
+
+Update the classes (not necessary but recommended):
 
 ```diff
 // Replace ClassResourceInterface
@@ -26,6 +49,22 @@ If you did before using the FOSRestBundle which removed the auto route generatio
 // Replace RouteResource
 -use FOS\RestBundle\Controller\Annotations\RouteResource;
 +use FOS\RestRoutingBundle\Controller\Annotations\RouteResource;
+
+// Replace NamePrefix
+-use FOS\RestBundle\Controller\Annotations\NamePrefix;
++use FOS\RestRoutingBundle\Controller\Annotations\NamePrefix;
+
+// Replace Prefix
+-use FOS\RestBundle\Controller\Annotations\Prefix;
++use FOS\RestRoutingBundle\Controller\Annotations\Prefix;
+
+// Replace NoRoute
+-use FOS\RestBundle\Controller\Annotations\NoRoute;
++use FOS\RestRoutingBundle\Controller\Annotations\NoRoute;
+
+// Replace Version
+-use FOS\RestBundle\Controller\Annotations\Version;
++use FOS\RestRoutingBundle\Controller\Annotations\Version;
 ```
 
 License

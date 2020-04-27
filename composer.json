@@ -4,10 +4,18 @@
     "description": "This Bundle automatic route registration for the Controllers",
     "keywords": ["rest"],
     "license": "MIT",
-    "autoload":{
-        "psr-4":{
+    "autoload": {
+        "psr-4": {
             "FOS\\RestRoutingBundle\\": ""
         },
+        "files":[
+            "Controller/Annotations/NamePrefix.php",
+            "Controller/Annotations/NoRoute.php",
+            "Controller/Annotations/Prefix.php",
+            "Controller/Annotations/RouteResource.php",
+            "Controller/Annotations/Version.php",
+            "Routing/ClassResourceInterface.php"
+        ],
         "exclude-from-classmap": [
             "Resources/",
             "Tests/"

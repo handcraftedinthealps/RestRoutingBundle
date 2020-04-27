@@ -373,6 +373,24 @@ class RestRouteLoaderTest extends LoaderTest
     }
 
     /**
+     * RestActionReader::getMethodArguments should ignore certain types of
+     * parameters.
+     */
+    public function testOldRequestTypeHintsIgnoredCorrectly()
+    {
+        $collection = $this->loadFromControllerFixture('OldTypeHintedController');
+
+        $this->assertNotNull($collection->get('old_type.get_articles'), 'route for "old_type.get_articles" does not exist');
+        $this->assertEquals('/articles.{_format}', $collection->get('old_type.get_articles')->getPath());
+        $this->assertNotNull($collection->get('old_type.post_articles'), 'route for "old_type.post_articles" does not exist');
+        $this->assertEquals('/articles.{_format}', $collection->get('old_type.post_articles')->getPath());
+        $this->assertNotNull($collection->get('old_type.get_article'), 'route for "old_type.get_article" does not exist');
+        $this->assertEquals('/articles/{id}.{_format}', $collection->get('old_type.get_article')->getPath());
+        $this->assertNull($collection->get('post_article'));
+        $this->assertNull($collection->get('old_type.post_article'));
+    }
+
+    /**
      * @see https://github.com/FriendsOfSymfony/FOSRestBundle/issues/1198
      */
     public function testParamConverterIsIgnoredInRouteGenerationCorrectly()

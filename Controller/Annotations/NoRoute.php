@@ -38,4 +38,3 @@ class NoRoute extends BaseRoute
         return;
     }
 }
-

@@ -26,4 +26,3 @@ if (!class_exists(OldClassResourceInterface::class)) {
 interface ClassResourceInterface
 {
 }
-

@@ -1,7 +1,7 @@
 FOSRoutingRestBundle
-=============
+====================
 
-This bundle provides the automatic route generation for to FOSRestBundle 3.0
+This bundle provides the automatic route generation for the FOSRestBundle 3.0.
 
 Documentation
 -------------

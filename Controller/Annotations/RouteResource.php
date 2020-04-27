@@ -13,10 +13,6 @@ namespace FOS\RestRoutingBundle\Controller\Annotations;
 
 use FOS\RestBundle\Controller\Annotations\RouteResource as OldRouteResource;
 
-if (!class_exists(OldRouteResource::class)) {
-    class_alias(RouteResource::class, OldRouteResource::class);
-}
-
 /**
  * RouteResource annotation class.
  *
@@ -34,4 +30,8 @@ class RouteResource
      * @var bool
      */
     public $pluralize = true;
+}
+
+if (!class_exists(OldRouteResource::class)) {
+    class_alias(RouteResource::class, OldRouteResource::class);
 }

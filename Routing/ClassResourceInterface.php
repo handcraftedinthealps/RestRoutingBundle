@@ -13,7 +13,7 @@ namespace FOS\RestRoutingBundle\Routing;
 
 use FOS\RestBundle\Routing\ClassResourceInterface as OldClassResourceInterface;
 
-if (!class_exists(OldClassResourceInterface::class)) {
+if (!interface_exists(OldClassResourceInterface::class)) {
     class_alias(ClassResourceInterface::class, OldClassResourceInterface::class);
 }
 

@@ -12,6 +12,7 @@
 namespace FOS\RestRoutingBundle\Controller\Annotations;
 
 use Doctrine\Common\Annotations\Annotation;
+use FOS\RestBundle\Controller\Annotations\NamePrefix as OldNamePrefix;
 
 /**
  * NamePrefix Route annotation class.
@@ -21,4 +22,8 @@ use Doctrine\Common\Annotations\Annotation;
  */
 class NamePrefix extends Annotation
 {
+}
+
+if (!class_exists(OldNamePrefix::class)) {
+    class_alias(NamePrefix::class, OldNamePrefix::class);
 }

@@ -12,6 +12,7 @@
 namespace FOS\RestRoutingBundle\Controller\Annotations;
 
 use Doctrine\Common\Annotations\Annotation;
+use FOS\RestBundle\Controller\Annotations\Version as OldVersion;
 
 /**
  * Version Route annotation class.
@@ -21,4 +22,8 @@ use Doctrine\Common\Annotations\Annotation;
  */
 class Version extends Annotation
 {
+}
+
+if (!class_exists(OldVersion::class)) {
+    class_alias(Version::class, OldVersion::class, false);
 }

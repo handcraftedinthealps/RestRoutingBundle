@@ -11,6 +11,7 @@
 
 namespace FOS\RestRoutingBundle\Controller\Annotations;
 
+use FOS\RestBundle\Controller\Annotations\NoRoute as OldNoRoute;
 use Symfony\Component\Routing\Annotation\Route as BaseRoute;
 
 /**
@@ -37,4 +38,8 @@ class NoRoute extends BaseRoute
     {
         return;
     }
+}
+
+if (!class_exists(OldNoRoute::class)) {
+    class_alias(NoRoute::class, OldNoRoute::class);
 }

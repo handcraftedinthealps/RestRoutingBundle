@@ -195,6 +195,35 @@ class RestRouteLoaderTest extends LoaderTest
     }
 
     /**
+     * Test that annotated UsersController RESTful class gets parsed correctly with condition option (expression-language).
+     */
+    public function testOldAnnotatedVersionUserFixture()
+    {
+        $collection = $this->loadFromControllerFixture('OldAnnotatedVersionUserController');
+        $etalonRoutes = $this->loadEtalonRoutesInfo('old_annotated_version_controller.yml');
+
+        $this->assertInstanceOf(RestRouteCollection::class, $collection);
+        $this->assertCount(4, $collection->all());
+
+        foreach ($etalonRoutes as $name => $params) {
+            $route = $collection->get($name);
+
+            $this->assertNotNull($route, "no route found for '$name'");
+            $this->assertEquals($params['path'], $route->getPath(), 'path failed to match for '.$name);
+
+            $params['requirements'] = isset($params['requirements']) ? $params['requirements'] : array();
+            $requirements = $route->getRequirements();
+            unset($requirements['_method']);
+            $this->assertEquals($params['requirements'], $requirements, 'requirements failed to match for '.$name);
+
+            $this->assertContains($params['controller'], $route->getDefault('_controller'), 'controller failed to match for '.$name);
+            if (isset($params['condition']) && true) {
+                $this->assertEquals($params['condition'], $route->getCondition(), 'condition failed to match for '.$name);
+            }
+        }
+    }
+
+    /**
      * Test that a custom format annotation is not overwritten.
      */
     public function testCustomFormatRequirementIsKept()
@@ -381,11 +410,11 @@ class RestRouteLoaderTest extends LoaderTest
         $collection = $this->loadFromControllerFixture('OldTypeHintedController');
 
         $this->assertNotNull($collection->get('old_type.get_articles'), 'route for "old_type.get_articles" does not exist');
-        $this->assertEquals('/articles.{_format}', $collection->get('old_type.get_articles')->getPath());
+        $this->assertEquals('/prefix/articles.{_format}', $collection->get('old_type.get_articles')->getPath());
         $this->assertNotNull($collection->get('old_type.post_articles'), 'route for "old_type.post_articles" does not exist');
-        $this->assertEquals('/articles.{_format}', $collection->get('old_type.post_articles')->getPath());
+        $this->assertEquals('/prefix/articles.{_format}', $collection->get('old_type.post_articles')->getPath());
         $this->assertNotNull($collection->get('old_type.get_article'), 'route for "old_type.get_article" does not exist');
-        $this->assertEquals('/articles/{id}.{_format}', $collection->get('old_type.get_article')->getPath());
+        $this->assertEquals('/prefix/articles/{id}.{_format}', $collection->get('old_type.get_article')->getPath());
         $this->assertNull($collection->get('post_article'));
         $this->assertNull($collection->get('old_type.post_article'));
     }

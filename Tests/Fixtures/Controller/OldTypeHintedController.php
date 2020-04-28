@@ -13,6 +13,7 @@ namespace FOS\RestRoutingBundle\Tests\Fixtures\Controller;
 
 use FOS\RestBundle\Controller\Annotations\NamePrefix;
 use FOS\RestBundle\Controller\Annotations\NoRoute;
+use FOS\RestBundle\Controller\Annotations\Prefix;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Psr\Http\Message\MessageInterface;
@@ -22,6 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @NamePrefix("old_type.")
  * @RouteResource("Article")
+ * @Prefix("/prefix")
  */
 class OldTypeHintedController implements ClassResourceInterface
 {

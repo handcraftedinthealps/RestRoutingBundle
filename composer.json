@@ -1,8 +1,8 @@
 {
     "name": "friendsofsymfony/rest-routing-bundle",
     "type": "symfony-bundle",
-    "description": "This Bundle automatic route registration for the Controllers",
-    "keywords": ["rest"],
+    "description": "This bundle provides automatic route registration for the Controllers",
+    "keywords": ["rest", "routing"],
     "license": "MIT",
     "autoload": {
         "psr-4": {

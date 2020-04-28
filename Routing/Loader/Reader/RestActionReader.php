@@ -207,6 +207,7 @@ class RestActionReader
         $versionRequirement = $this->getVersionRequirement();
 
         $annotations = $this->readRouteAnnotation($method);
+
         if (!empty($annotations)) {
             foreach ($annotations as $annotation) {
                 $path = implode('/', $urlParts);

@@ -1,18 +1,18 @@
 <?php
 
 /*
- * This file is part of the FOSRestRoutingBundle package.
+ * This file is part of Handcrafted in the Alps - Rest Routing Bundle Project.
  *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ * (c) Sulu GmbH <hello@sulu.io>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
-namespace FOS\RestRoutingBundle\Tests\Routing\Loader;
+namespace HandcraftedInTheAlps\RestRoutingBundle\Tests\Routing\Loader;
 
-use FOS\RestRoutingBundle\Routing\Loader\RestRouteProcessor;
-use FOS\RestRoutingBundle\Routing\Loader\RestXmlCollectionLoader;
+use HandcraftedInTheAlps\RestRoutingBundle\Routing\Loader\RestRouteProcessor;
+use HandcraftedInTheAlps\RestRoutingBundle\Routing\Loader\RestXmlCollectionLoader;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\Routing\RouteCollection;
@@ -91,7 +91,7 @@ class RestXmlCollectionLoaderTest extends LoaderTest
 
         $this->assertEquals('/users.{_format}', $route->getPath());
         $this->assertEquals('json|xml|html', $route->getRequirement('_format'));
-        $this->assertEquals('FOSRestRoutingBundle:UsersController:getUsers', $route->getDefault('_controller'));
+        $this->assertEquals('RestRoutingBundle:UsersController:getUsers', $route->getDefault('_controller'));
     }
 
     public function testManualRoutesWithoutIncludeFormat()

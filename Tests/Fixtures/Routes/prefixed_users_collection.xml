@@ -8,13 +8,13 @@
         id="users"
         type="rest"
         prefix="/resources/all"
-        resource="FOS\RestRoutingBundle\Tests\Fixtures\Controller\UsersController" />
+        resource="HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller\UsersController" />
 
     <import
         id="user_topics"
         type="rest"
         parent="users"
-        resource="FOS\RestRoutingBundle\Tests\Fixtures\Controller\UserTopicsController" />
+        resource="HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller\UserTopicsController" />
 
     <import
         id="user_topic_comments"
@@ -22,6 +22,6 @@
         prefix="/additional"
         parent="user_topics"
         name-prefix="test_"
-        resource="FOS\RestRoutingBundle\Tests\Fixtures\Controller\UserTopicCommentsController" />
+        resource="HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller\UserTopicCommentsController" />
 
 </routes>

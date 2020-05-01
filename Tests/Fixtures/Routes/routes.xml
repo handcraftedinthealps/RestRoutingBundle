@@ -5,6 +5,6 @@
         http://friendsofsymfony.github.com/schema/rest/routing-1.0.xsd"
 >
     <route id="get_users" path="/users" host="rest.local">
-        <default key="_controller">FOSRestRoutingBundle:UsersController:getUsers</default>
+        <default key="_controller">RestRoutingBundle:UsersController:getUsers</default>
     </route>
 </routes>

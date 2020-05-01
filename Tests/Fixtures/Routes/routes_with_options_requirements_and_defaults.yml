@@ -1,6 +1,6 @@
 users:
   type:     rest
-  resource: FOS\RestRoutingBundle\Tests\Fixtures\Controller\UsersController
+  resource: HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller\UsersController
   options:
     expose: true
   requirements:

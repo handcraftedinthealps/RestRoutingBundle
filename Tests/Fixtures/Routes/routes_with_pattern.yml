@@ -1,4 +1,4 @@
 get_users:
     pattern: /users
     defaults:
-        _controller: FOSRestRoutingBundle:UsersController:getUsers
+        _controller: RestRoutingBundle:UsersController:getUsers

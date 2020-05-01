@@ -7,18 +7,18 @@
     <import
         id="users"
         type="rest"
-        resource="FOS\RestRoutingBundle\Tests\Fixtures\Controller\UsersController" />
+        resource="HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller\UsersController" />
 
     <import
         id="user_topics"
         type="rest"
         parent="users"
-        resource="FOS\RestRoutingBundle\Tests\Fixtures\Controller\UserTopicsController" />
+        resource="HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller\UserTopicsController" />
 
     <import
         id="user_topic_comments"
         type="rest"
         parent="user_topics"
-        resource="FOS\RestRoutingBundle\Tests\Fixtures\Controller\UserTopicCommentsController" />
+        resource="HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller\UserTopicCommentsController" />
 
 </routes>

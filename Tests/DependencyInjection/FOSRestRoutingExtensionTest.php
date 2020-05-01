@@ -1,25 +1,25 @@
 <?php
 
 /*
- * This file is part of the FOSRestRoutingBundle package.
+ * This file is part of Handcrafted in the Alps - Rest Routing Bundle Project.
  *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ * (c) Sulu GmbH <hello@sulu.io>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
-namespace FOS\RestRoutingBundle\Tests\DependencyInjection;
+namespace HandcraftedInTheAlps\RestRoutingBundle\Tests\DependencyInjection;
 
-use FOS\RestRoutingBundle\DependencyInjection\CompilerPass\FormatsCompilerPass;
-use FOS\RestRoutingBundle\DependencyInjection\FOSRestRoutingExtension;
+use HandcraftedInTheAlps\RestRoutingBundle\DependencyInjection\CompilerPass\FormatsCompilerPass;
+use HandcraftedInTheAlps\RestRoutingBundle\DependencyInjection\RestRoutingExtension;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * FOSRestRoutingExtension test.
+ * RestRoutingExtension test.
  *
  * @author Bulat Shakirzyanov <avalanche123>
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
@@ -181,7 +181,7 @@ class FOSRestRoutingExtensionTest extends TestCase
 
     private function load(array $config): void
     {
-        $extension = new FOSRestRoutingExtension();
+        $extension = new RestRoutingExtension();
         $extension->load(
             $config,
             $this->container

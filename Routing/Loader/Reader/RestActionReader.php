@@ -1,22 +1,22 @@
 <?php
 
 /*
- * This file is part of the FOSRestRoutingBundle package.
+ * This file is part of Handcrafted in the Alps - Rest Routing Bundle Project.
  *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ * (c) Sulu GmbH <hello@sulu.io>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
-namespace FOS\RestRoutingBundle\Routing\Loader\Reader;
+namespace HandcraftedInTheAlps\RestRoutingBundle\Routing\Loader\Reader;
 
 use Doctrine\Common\Annotations\Reader;
 use Symfony\Component\Routing\Annotation\Route as RouteAnnotation;
-use FOS\RestRoutingBundle\Inflector\InflectorInterface;
+use HandcraftedInTheAlps\RestRoutingBundle\Inflector\InflectorInterface;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Request\ParamReaderInterface;
-use FOS\RestRoutingBundle\Routing\RestRouteCollection;
+use HandcraftedInTheAlps\RestRoutingBundle\Routing\RestRouteCollection;
 use Psr\Http\Message\MessageInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
@@ -550,7 +550,7 @@ class RestActionReader
 
     private function readClassAnnotation(\ReflectionClass $reflectionClass, string $annotationName): ?RouteAnnotation
     {
-        $annotationClass = "FOS\\RestRoutingBundle\\Controller\\Annotations\\$annotationName";
+        $annotationClass = "HandcraftedInTheAlps\\RestRoutingBundle\\Controller\\Annotations\\$annotationName";
 
         if ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, $annotationClass)) {
             return $annotation;
@@ -567,7 +567,7 @@ class RestActionReader
 
     private function readMethodAnnotation(\ReflectionMethod $reflectionMethod, string $annotationName): ?RouteAnnotation
     {
-        $annotationClass = "FOS\\RestRoutingBundle\\Controller\\Annotations\\$annotationName";
+        $annotationClass = "HandcraftedInTheAlps\\RestRoutingBundle\\Controller\\Annotations\\$annotationName";
         $oldAnnotationClass = "FOS\\RestBundle\\Controller\\Annotations\\$annotationName";
 
         if (class_exists($annotationClass)) {
@@ -591,7 +591,7 @@ class RestActionReader
     private function readMethodAnnotations(\ReflectionMethod $reflectionMethod, string $annotationName): array
     {
         $annotations = [];
-        $annotationClass = "FOS\\RestRoutingBundle\\Controller\\Annotations\\$annotationName";
+        $annotationClass = "HandcraftedInTheAlps\\RestRoutingBundle\\Controller\\Annotations\\$annotationName";
         $oldAnnotationClass = "FOS\\RestBundle\\Controller\\Annotations\\$annotationName";
 
         if ($annotations_new = $this->annotationReader->getMethodAnnotations($reflectionMethod)) {

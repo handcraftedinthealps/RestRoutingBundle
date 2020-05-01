@@ -1,16 +1,16 @@
 users:
     type:     rest
-    resource: FOS\RestRoutingBundle\Tests\Fixtures\Controller\UsersController
+    resource: HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller\UsersController
     prefix:   /resources/all
 
 user_topics:
     type:     rest
-    resource: FOS\RestRoutingBundle\Tests\Fixtures\Controller\UserTopicsController
+    resource: HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller\UserTopicsController
     parent:   users
 
 user_topic_comments:
     type:         rest
-    resource:     FOS\RestRoutingBundle\Tests\Fixtures\Controller\UserTopicCommentsController
+    resource:     HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller\UserTopicCommentsController
     parent:       user_topics
     prefix:       /additional
     name_prefix:  test_

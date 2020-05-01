@@ -1,28 +1,28 @@
 <?php
 
 /*
- * This file is part of the FOSRestRoutingBundle package.
+ * This file is part of Handcrafted in the Alps - Rest Routing Bundle Project.
  *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ * (c) Sulu GmbH <hello@sulu.io>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
-namespace FOS\RestRoutingBundle\Routing\Loader\Reader;
+namespace HandcraftedInTheAlps\RestRoutingBundle\Routing\Loader\Reader;
 
 use Doctrine\Common\Annotations\Reader;
 use FOS\RestBundle\Routing\ClassResourceInterface as OldClassResourceInterface;
-use FOS\RestRoutingBundle\Controller\Annotations\RouteResource;
+use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\RouteResource;
 use FOS\RestBundle\Controller\Annotations\RouteResource as OldRouteResource;
-use FOS\RestRoutingBundle\Controller\Annotations\Prefix;
+use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\Prefix;
 use FOS\RestBundle\Controller\Annotations\Prefix as OldPrefix;
-use FOS\RestRoutingBundle\Controller\Annotations\Version;
+use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\Version;
 use FOS\RestBundle\Controller\Annotations\Version as OldVersion;
-use FOS\RestRoutingBundle\Controller\Annotations\NamePrefix;
+use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\NamePrefix;
 use FOS\RestBundle\Controller\Annotations\NamePrefix as OldNamePrefix;
-use FOS\RestRoutingBundle\Routing\ClassResourceInterface;
-use FOS\RestRoutingBundle\Routing\RestRouteCollection;
+use HandcraftedInTheAlps\RestRoutingBundle\Routing\ClassResourceInterface;
+use HandcraftedInTheAlps\RestRoutingBundle\Routing\RestRouteCollection;
 use Symfony\Component\Config\Resource\FileResource;
 
 /**

@@ -8,6 +8,6 @@
         id="user_topics"
         type="rest"
         parent="users"
-        resource="FOS\RestRoutingBundle\Tests\Fixtures\Controller\UserTopicsController" />
+        resource="HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller\UserTopicsController" />
 
 </routes>

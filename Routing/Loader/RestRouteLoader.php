@@ -1,17 +1,17 @@
 <?php
 
 /*
- * This file is part of the FOSRestRoutingBundle package.
+ * This file is part of Handcrafted in the Alps - Rest Routing Bundle Project.
  *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ * (c) Sulu GmbH <hello@sulu.io>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
-namespace FOS\RestRoutingBundle\Routing\Loader;
+namespace HandcraftedInTheAlps\RestRoutingBundle\Routing\Loader;
 
-use FOS\RestRoutingBundle\Routing\Loader\Reader\RestControllerReader;
+use HandcraftedInTheAlps\RestRoutingBundle\Routing\Loader\Reader\RestControllerReader;
 use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\DependencyInjection\ContainerInterface;

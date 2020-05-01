@@ -1,12 +1,12 @@
 {
-    "name": "friendsofsymfony/rest-routing-bundle",
+    "name": "handcraftedinthealps/rest-routing-bundle",
     "type": "symfony-bundle",
     "description": "This bundle provides automatic route registration for the Controllers",
     "keywords": ["rest", "routing"],
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "FOS\\RestRoutingBundle\\": ""
+            "HandcraftedInTheAlps\\RestRoutingBundle\\": ""
         },
         "files":[
             "Controller/Annotations/NamePrefix.php",

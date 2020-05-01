@@ -146,7 +146,7 @@ Implicit resource name definition
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 It's possible to omit the ``User`` part of the method names when the Controller
-implements the ``ClassResourceInterface``. In this case FOSRestRoutingBundle can
+implements the ``ClassResourceInterface``. In this case RestRoutingBundle can
 determine the resource based on the Controller name. It's important to use
 singular names in the Controller for this to work. By omitting the resource name
 from the methods ``getUserAction`` and ``getUsersAction``, there would be an
@@ -160,7 +160,7 @@ following would work as well:
 
     namespace AppBundle\Controller;
 
-    use FOS\RestRoutingBundle\Routing\ClassResourceInterface;
+    use HandcraftedInTheAlps\RestRoutingBundle\Routing\ClassResourceInterface;
 
     class UserController implements ClassResourceInterface
     {
@@ -192,7 +192,7 @@ name via the ``@RouteResource`` annotation:
 
     namespace AppBundle\Controller;
 
-    use FOS\RestRoutingBundle\Controller\Annotations\RouteResource;
+    use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\RouteResource;
 
     /**
      * @RouteResource("User")
@@ -226,7 +226,7 @@ Finally, it's possible to have a singular resource name thanks to the ``@RouteRe
 
     namespace AppBundle\Controller;
 
-    use FOS\RestRoutingBundle\Controller\Annotations\RouteResource;
+    use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\RouteResource;
 
     /**
      * @RouteResource("User", pluralize=false)
@@ -364,7 +364,7 @@ to limit or add a custom format, you can do so by overriding it with the
 
     namespace AppBundle\Controller;
 
-    use FOS\RestRoutingBundle\Controller\Annotations\Route;
+    use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\Route;
 
         // ...
 
@@ -382,7 +382,7 @@ Changing pluralization in generated routes
 
 If you want to change pluralization in generated routes, you can do this by
 replacing ``fos_rest.inflector.doctrine`` service with your own implementation.
-Create a new class that implements ``FOS\RestRoutingBundle\Inflector\InflectorInterface``.
+Create a new class that implements ``HandcraftedInTheAlps\RestRoutingBundle\Inflector\InflectorInterface``.
 
 The example below will remove pluralization by implementing the interface and
 returning the ``$word`` instead of executing method ``Inflector::pluralize($word);``
@@ -394,7 +394,7 @@ Example class implementing ``InflectorInterface``:
 
     namespace Acme\HelloBundle\Util\Inflector;
 
-    use FOS\RestRoutingBundle\Inflector\InflectorInterface;
+    use HandcraftedInTheAlps\RestRoutingBundle\Inflector\InflectorInterface;
 
     /**
      * Inflector class

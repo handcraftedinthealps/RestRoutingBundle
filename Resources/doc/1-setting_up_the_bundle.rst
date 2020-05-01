@@ -20,7 +20,7 @@ in the `installation chapter`_ of the Composer documentation.
 
         // config/bundles.php
 
-        FOS\RestRoutingBundle\FOSRestRoutingBundle::class => ['all' => true],
+        HandcraftedInTheAlps\RestRoutingBundle\RestRoutingBundle::class => ['all' => true],
 
 .. _`set up a Symfony project`: https://symfony.com/download
 .. _`installation chapter`: https://getcomposer.org/doc/00-intro.md

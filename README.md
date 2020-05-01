@@ -44,27 +44,27 @@ Update the classes (not necessary but recommended):
 ```diff
 // Replace ClassResourceInterface
 -use FOS\RestBundle\Routing\ClassResourceInterface;
-+use FOS\RestRoutingBundle\Routing\ClassResourceInterface;
++use HandcraftedInTheAlps\RestRoutingBundle\Routing\ClassResourceInterface;
 
 // Replace RouteResource
 -use FOS\RestBundle\Controller\Annotations\RouteResource;
-+use FOS\RestRoutingBundle\Controller\Annotations\RouteResource;
++use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\RouteResource;
 
 // Replace NamePrefix
 -use FOS\RestBundle\Controller\Annotations\NamePrefix;
-+use FOS\RestRoutingBundle\Controller\Annotations\NamePrefix;
++use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\NamePrefix;
 
 // Replace Prefix
 -use FOS\RestBundle\Controller\Annotations\Prefix;
-+use FOS\RestRoutingBundle\Controller\Annotations\Prefix;
++use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\Prefix;
 
 // Replace NoRoute
 -use FOS\RestBundle\Controller\Annotations\NoRoute;
-+use FOS\RestRoutingBundle\Controller\Annotations\NoRoute;
++use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\NoRoute;
 
 // Replace Version
 -use FOS\RestBundle\Controller\Annotations\Version;
-+use FOS\RestRoutingBundle\Controller\Annotations\Version;
++use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\Version;
 ```
 
 License

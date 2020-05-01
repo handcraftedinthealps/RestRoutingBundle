@@ -1,15 +1,15 @@
 <?php
 
 /*
- * This file is part of the FOSRestRoutingBundle package.
+ * This file is part of Handcrafted in the Alps - Rest Routing Bundle Project.
  *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ * (c) Sulu GmbH <hello@sulu.io>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
-namespace FOS\RestRoutingBundle\Tests\Fixtures\Controller;
+namespace HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller;
 
 use FOS\RestBundle\Controller\Annotations\Copy;
 use FOS\RestBundle\Controller\Annotations\Delete;
@@ -19,7 +19,7 @@ use FOS\RestBundle\Controller\Annotations\Link;
 use FOS\RestBundle\Controller\Annotations\Lock;
 use FOS\RestBundle\Controller\Annotations\Mkcol;
 use FOS\RestBundle\Controller\Annotations\Move;
-use FOS\RestRoutingBundle\Controller\Annotations\NoRoute;
+use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\NoRoute;
 use FOS\RestBundle\Controller\Annotations\Options;
 use FOS\RestBundle\Controller\Annotations\Patch;
 use FOS\RestBundle\Controller\Annotations\Post;

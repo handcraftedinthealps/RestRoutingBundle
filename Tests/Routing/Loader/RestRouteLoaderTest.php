@@ -1,19 +1,19 @@
 <?php
 
 /*
- * This file is part of the FOSRestRoutingBundle package.
+ * This file is part of Handcrafted in the Alps - Rest Routing Bundle Project.
  *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ * (c) Sulu GmbH <hello@sulu.io>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
-namespace FOS\RestRoutingBundle\Tests\Routing\Loader;
+namespace HandcraftedInTheAlps\RestRoutingBundle\Tests\Routing\Loader;
 
-use FOS\RestRoutingBundle\Routing\RestRouteCollection;
-use FOS\RestRoutingBundle\Tests\Fixtures\Controller\AnnotatedPrefixedController;
-use FOS\RestRoutingBundle\Tests\Fixtures\Controller\UsersController;
+use HandcraftedInTheAlps\RestRoutingBundle\Routing\RestRouteCollection;
+use HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller\AnnotatedPrefixedController;
+use HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller\UsersController;
 
 /**
  * RestRouteLoader test.
@@ -445,6 +445,6 @@ class RestRouteLoaderTest extends LoaderTest
         $loader = $this->getControllerLoader($formats, $hasMethodPrefix);
         $loader->getControllerReader()->getActionReader()->setNamePrefix($namePrefix);
 
-        return $loader->load('FOS\RestRoutingBundle\Tests\Fixtures\Controller\\'.$fixtureName, 'rest');
+        return $loader->load('HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller\\'.$fixtureName, 'rest');
     }
 }

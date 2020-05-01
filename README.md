@@ -1,4 +1,8 @@
-# FOSRoutingRestBundle
+# RestRoutingBundle ⛰
+
+[![GitHub license](https://img.shields.io/github/license/handcraftedinthealps/RestRoutingBundle.svg)](https://github.com/handcraftedinthealps/RestRoutingBundle/blob/master/LICENSE)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/handcraftedinthealps/RestRoutingBundle.svg)](https://github.com/handcraftedinthealps/RestRoutingBundle/releases)
+[![Travis build](https://img.shields.io/travis/handcraftedinthealps/RestRoutingBundle/master.svg?label=travis)](https://travis-ci.org/handcraftedinthealps/RestRoutingBundle/branches)
 
 This bundle provides the automatic route generation for the FOSRestBundle 3.0.
 

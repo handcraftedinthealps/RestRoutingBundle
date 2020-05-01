@@ -20,7 +20,6 @@ use FOS\RestBundle\Controller\Annotations\Link;
 use FOS\RestBundle\Controller\Annotations\Lock;
 use FOS\RestBundle\Controller\Annotations\Mkcol;
 use FOS\RestBundle\Controller\Annotations\Move;
-use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\NoRoute;
 use FOS\RestBundle\Controller\Annotations\Options;
 use FOS\RestBundle\Controller\Annotations\Patch;
 use FOS\RestBundle\Controller\Annotations\Post;
@@ -30,6 +29,7 @@ use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\RestBundle\Controller\Annotations\Unlink;
 use FOS\RestBundle\Controller\Annotations\Unlock;
+use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\NoRoute;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AnnotatedUsersController extends AbstractController

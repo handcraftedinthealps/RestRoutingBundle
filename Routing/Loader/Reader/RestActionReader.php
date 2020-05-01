@@ -13,15 +13,15 @@
 namespace HandcraftedInTheAlps\RestRoutingBundle\Routing\Loader\Reader;
 
 use Doctrine\Common\Annotations\Reader;
-use Symfony\Component\Routing\Annotation\Route as RouteAnnotation;
-use HandcraftedInTheAlps\RestRoutingBundle\Inflector\InflectorInterface;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Request\ParamReaderInterface;
+use HandcraftedInTheAlps\RestRoutingBundle\Inflector\InflectorInterface;
 use HandcraftedInTheAlps\RestRoutingBundle\Routing\RestRouteCollection;
 use Psr\Http\Message\MessageInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Routing\Annotation\Route as RouteAnnotation;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
@@ -173,12 +173,12 @@ class RestActionReader
 
         // if we have only 1 resource & 1 argument passed, then it's object call, so
         // we can set collection singular name
-        if (1 === count($resources) && 1 === count($arguments) - count($this->parents)) {
+        if (1 === \count($resources) && 1 === \count($arguments) - \count($this->parents)) {
             $collection->setSingularName($resources[0]);
         }
 
         // if we have parents passed - merge them with own resource names
-        if (count($this->parents)) {
+        if (\count($this->parents)) {
             $resources = array_merge($this->parents, $resources);
         }
 
@@ -186,13 +186,13 @@ class RestActionReader
             $resources[] = null;
         }
 
-        $routeName = $httpMethod.$this->generateRouteName($resources);
+        $routeName = $httpMethod . $this->generateRouteName($resources);
         $urlParts = $this->generateUrlParts($resources, $arguments, $httpMethod);
 
         // if passed method is not valid HTTP method then it's either
         // a hypertext driver, a custom object (PUT) or collection (GET)
         // method
-        if (!in_array($httpMethod, $this->availableHTTPMethods)) {
+        if (!\in_array($httpMethod, $this->availableHTTPMethods, true)) {
             $urlParts[] = $httpMethod;
             $httpMethod = $this->getCustomHttpMethod($httpMethod, $resources, $arguments);
         }
@@ -224,7 +224,7 @@ class RestActionReader
                     $methods = $annoMethods;
                 }
 
-                $path = null !== $annotation->getPath() ? $this->routePrefix.$annotation->getPath() : $path;
+                $path = null !== $annotation->getPath() ? $this->routePrefix . $annotation->getPath() : $path;
                 $requirements = array_merge($requirements, $annoRequirements);
                 $options = array_merge($options, $annotation->getOptions());
                 $defaults = array_merge($defaults, $annotation->getDefaults());
@@ -368,7 +368,7 @@ class RestActionReader
         $isInflectable = true;
 
         if (0 === strpos($httpMethod, self::COLLECTION_ROUTE_PREFIX)
-            && in_array(substr($httpMethod, 1), $this->availableHTTPMethods)
+            && \in_array(substr($httpMethod, 1), $this->availableHTTPMethods, true)
         ) {
             $isCollection = true;
             $httpMethod = substr($httpMethod, 1);
@@ -378,8 +378,8 @@ class RestActionReader
 
         if ($isCollection && !empty($resource)) {
             $resourcePluralized = $this->generateResourceName(end($resource));
-            $isInflectable = ($resourcePluralized != $resource[count($resource) - 1]);
-            $resource[count($resource) - 1] = $resourcePluralized;
+            $isInflectable = ($resourcePluralized !== $resource[\count($resource) - 1]);
+            $resource[\count($resource) - 1] = $resourcePluralized;
         }
 
         $resources = array_merge($resource, $resources);
@@ -441,7 +441,7 @@ class RestActionReader
                 }
             }
 
-            if (in_array($argument->getName(), $ignoreParameters, true)) {
+            if (\in_array($argument->getName(), $ignoreParameters, true)) {
                 continue;
             }
 
@@ -468,7 +468,7 @@ class RestActionReader
         $routeName = '';
         foreach ($resources as $resource) {
             if (null !== $resource) {
-                $routeName .= '_'.basename($resource);
+                $routeName .= '_' . basename($resource);
             }
         }
 
@@ -485,7 +485,7 @@ class RestActionReader
         foreach ($resources as $i => $resource) {
             // if we already added all parent routes paths to URL & we have
             // prefix - add it
-            if (!empty($this->routePrefix) && $i === count($this->parents)) {
+            if (!empty($this->routePrefix) && $i === \count($this->parents)) {
                 $urlParts[] = $this->routePrefix;
             }
 
@@ -495,12 +495,12 @@ class RestActionReader
                 if (null !== $resource) {
                     $urlParts[] =
                         strtolower($this->generateResourceName($resource))
-                        .'/{'.$arguments[$i]->getName().'}';
+                        . '/{' . $arguments[$i]->getName() . '}';
                 } else {
-                    $urlParts[] = '{'.$arguments[$i]->getName().'}';
+                    $urlParts[] = '{' . $arguments[$i]->getName() . '}';
                 }
             } elseif (null !== $resource) {
-                if ((0 === count($arguments) && !in_array($httpMethod, $this->availableHTTPMethods))
+                if ((0 === \count($arguments) && !\in_array($httpMethod, $this->availableHTTPMethods, true))
                     || 'new' === $httpMethod
                     || 'post' === $httpMethod
                 ) {
@@ -520,13 +520,13 @@ class RestActionReader
      */
     private function getCustomHttpMethod(string $httpMethod, array $resources, array $arguments): string
     {
-        if (in_array($httpMethod, $this->availableConventionalActions)) {
+        if (\in_array($httpMethod, $this->availableConventionalActions, true)) {
             // allow hypertext as the engine of application state
             // through conventional GET actions
             return 'get';
         }
 
-        if (count($arguments) < count($resources)) {
+        if (\count($arguments) < \count($resources)) {
             // resource collection
             return 'get';
         }
@@ -618,10 +618,10 @@ class RestActionReader
             }
         }
 
-        $fullRouteName = $this->namePrefix.$routeName;
+        $fullRouteName = $this->namePrefix . $routeName;
 
         if ($isCollection && !$isInflectable) {
-            $collection->add($this->namePrefix.self::COLLECTION_ROUTE_PREFIX.$routeName, $route);
+            $collection->add($this->namePrefix . self::COLLECTION_ROUTE_PREFIX . $routeName, $route);
             if (!$collection->get($fullRouteName)) {
                 $collection->add($fullRouteName, clone $route);
             }

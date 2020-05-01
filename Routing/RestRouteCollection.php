@@ -38,7 +38,7 @@ class RestRouteCollection extends RouteCollection
     public function prependRouteControllersWithPrefix(string $prefix): void
     {
         foreach (parent::all() as $route) {
-            $route->setDefault('_controller', $prefix.$route->getDefault('_controller'));
+            $route->setDefault('_controller', $prefix . $route->getDefault('_controller'));
         }
     }
 
@@ -57,9 +57,9 @@ class RestRouteCollection extends RouteCollection
      */
     public function all(): array
     {
-        $regex = '/'.
-            '(_|^)'.
-            '(get|post|put|delete|patch|head|options|mkcol|propfind|proppatch|lock|unlock|move|copy|link|unlink)_'. // allowed http methods
+        $regex = '/' .
+            '(_|^)' .
+            '(get|post|put|delete|patch|head|options|mkcol|propfind|proppatch|lock|unlock|move|copy|link|unlink)_' . // allowed http methods
             '/i';
 
         $routes = parent::all();

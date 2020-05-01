@@ -35,7 +35,7 @@ class RestRoutingExtension extends Extension
         $configuration = new Configuration($container->getParameter('kernel.debug'));
         $config = $this->processConfiguration($configuration, $configs);
 
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 
         $loader->load('routing.xml');
 
@@ -56,7 +56,7 @@ class RestRoutingExtension extends Extension
 
         foreach ($config['service'] as $key => $service) {
             if (null !== $service) {
-                $container->setAlias('handcraftedinthealps_rest_routing.'.$key, $service);
+                $container->setAlias('handcraftedinthealps_rest_routing.' . $key, $service);
             }
         }
     }

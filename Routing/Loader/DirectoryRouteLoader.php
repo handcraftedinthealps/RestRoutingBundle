@@ -40,7 +40,7 @@ class DirectoryRouteLoader extends Loader
      */
     public function load($resource, $type = null): RouteCollection
     {
-        if (isset($resource[0]) && in_array($resource[0], ['@', '.'], true)) {
+        if (isset($resource[0]) && \in_array($resource[0], ['@', '.'], true)) {
             $resource = $this->fileLocator->locate($resource);
         }
 
@@ -54,7 +54,7 @@ class DirectoryRouteLoader extends Loader
 
         foreach ($finder->in($resource)->name('*.php')->sortByName()->files() as $file) {
             if (null !== $class = ClassUtils::findClassInFile($file)) {
-                $imported = $this->processor->importResource($this, $class, array(), null, null, 'rest');
+                $imported = $this->processor->importResource($this, $class, [], null, null, 'rest');
                 $collection->addCollection($imported);
             }
         }
@@ -67,11 +67,11 @@ class DirectoryRouteLoader extends Loader
      */
     public function supports($resource, $type = null): bool
     {
-        if ('rest' !== $type || !is_string($resource)) {
+        if ('rest' !== $type || !\is_string($resource)) {
             return false;
         }
 
-        if (isset($resource[0]) && in_array($resource[0], ['@', '.'], true)) {
+        if (isset($resource[0]) && \in_array($resource[0], ['@', '.'], true)) {
             $resource = $this->fileLocator->locate($resource);
         }
 

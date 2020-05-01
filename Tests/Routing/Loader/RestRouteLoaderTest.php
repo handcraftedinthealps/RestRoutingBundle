@@ -39,9 +39,9 @@ class RestRouteLoaderTest extends LoaderTest
             $methods = $route->getMethods();
 
             $this->assertNotNull($route, sprintf('route for %s does not exist', $name));
-            $this->assertEquals($params['path'], $route->getPath(), 'Path does not match for route: '.$name);
-            $this->assertEquals($params['methods'][0], $methods[0], 'Method does not match for route: '.$name);
-            $this->assertContains($params['controller'], $route->getDefault('_controller'), 'Controller does not match for route: '.$name);
+            $this->assertSame($params['path'], $route->getPath(), 'Path does not match for route: ' . $name);
+            $this->assertSame($params['methods'][0], $methods[0], 'Method does not match for route: ' . $name);
+            $this->assertContains($params['controller'], $route->getDefault('_controller'), 'Controller does not match for route: ' . $name);
         }
     }
 
@@ -61,9 +61,9 @@ class RestRouteLoaderTest extends LoaderTest
             $methods = $route->getMethods();
 
             $this->assertNotNull($route, sprintf('route for %s does not exist', $name));
-            $this->assertEquals($params['path'], $route->getPath(), 'Path does not match for route: '.$name);
-            $this->assertEquals($params['methods'][0], $methods[0], 'Method does not match for route: '.$name);
-            $this->assertContains($params['controller'], $route->getDefault('_controller'), 'Controller does not match for route: '.$name);
+            $this->assertSame($params['path'], $route->getPath(), 'Path does not match for route: ' . $name);
+            $this->assertSame($params['methods'][0], $methods[0], 'Method does not match for route: ' . $name);
+            $this->assertContains($params['controller'], $route->getDefault('_controller'), 'Controller does not match for route: ' . $name);
         }
     }
 
@@ -104,21 +104,21 @@ class RestRouteLoaderTest extends LoaderTest
             $route = $collection->get($name);
 
             $this->assertNotNull($route, "no route found for '$name'");
-            $this->assertEquals($params['path'], $route->getPath(), 'path failed to match for '.$name);
+            $this->assertSame($params['path'], $route->getPath(), 'path failed to match for ' . $name);
 
-            $params['requirements'] = isset($params['requirements']) ? $params['requirements'] : array();
+            $params['requirements'] = isset($params['requirements']) ? $params['requirements'] : [];
             $requirements = $route->getRequirements();
             unset($requirements['_method']);
-            $this->assertEquals($params['requirements'], $requirements, 'requirements failed to match for '.$name);
+            $this->assertSame($params['requirements'], $requirements, 'requirements failed to match for ' . $name);
 
-            $this->assertContains($params['controller'], $route->getDefault('_controller'), 'controller failed to match for '.$name);
+            $this->assertContains($params['controller'], $route->getDefault('_controller'), 'controller failed to match for ' . $name);
             if (isset($params['condition'])) {
-                $this->assertEquals($params['condition'], $route->getCondition(), 'condition failed to match for '.$name);
+                $this->assertSame($params['condition'], $route->getCondition(), 'condition failed to match for ' . $name);
             }
 
             if (isset($params['options'])) {
                 foreach ($params['options'] as $option => $value) {
-                    $this->assertEquals($value, $route->getOption($option));
+                    $this->assertSame($value, $route->getOption($option));
                 }
             }
         }
@@ -128,13 +128,13 @@ class RestRouteLoaderTest extends LoaderTest
     {
         $collection = $this->loadFromControllerFixture('AnnotatedNonPluralizedArticleController');
 
-        $this->assertEquals('/article.{_format}', $collection->get('cget_article')->getPath());
+        $this->assertSame('/article.{_format}', $collection->get('cget_article')->getPath());
 
-        $this->assertEquals('/article/{slug}.{_format}', $collection->get('get_article')->getPath());
+        $this->assertSame('/article/{slug}.{_format}', $collection->get('get_article')->getPath());
 
-        $this->assertEquals('/article/{slug}/comment.{_format}', $collection->get('cget_article_comment')->getPath());
+        $this->assertSame('/article/{slug}/comment.{_format}', $collection->get('cget_article_comment')->getPath());
 
-        $this->assertEquals('/article/{slug}/comment/{comment}.{_format}', $collection->get('get_article_comment')->getPath());
+        $this->assertSame('/article/{slug}/comment/{comment}.{_format}', $collection->get('get_article_comment')->getPath());
     }
 
     /**
@@ -152,16 +152,16 @@ class RestRouteLoaderTest extends LoaderTest
             $route = $collection->get($name);
 
             $this->assertNotNull($route, "no route found for '$name'");
-            $this->assertEquals($params['path'], $route->getPath(), 'path failed to match for '.$name);
+            $this->assertSame($params['path'], $route->getPath(), 'path failed to match for ' . $name);
 
-            $params['requirements'] = isset($params['requirements']) ? $params['requirements'] : array();
+            $params['requirements'] = isset($params['requirements']) ? $params['requirements'] : [];
             $requirements = $route->getRequirements();
             unset($requirements['_method']);
-            $this->assertEquals($params['requirements'], $requirements, 'requirements failed to match for '.$name);
+            $this->assertSame($params['requirements'], $requirements, 'requirements failed to match for ' . $name);
 
-            $this->assertContains($params['controller'], $route->getDefault('_controller'), 'controller failed to match for '.$name);
+            $this->assertContains($params['controller'], $route->getDefault('_controller'), 'controller failed to match for ' . $name);
             if (isset($params['condition'])) {
-                $this->assertEquals($params['condition'], $route->getCondition(), 'condition failed to match for '.$name);
+                $this->assertSame($params['condition'], $route->getCondition(), 'condition failed to match for ' . $name);
             }
         }
     }
@@ -181,16 +181,16 @@ class RestRouteLoaderTest extends LoaderTest
             $route = $collection->get($name);
 
             $this->assertNotNull($route, "no route found for '$name'");
-            $this->assertEquals($params['path'], $route->getPath(), 'path failed to match for '.$name);
+            $this->assertSame($params['path'], $route->getPath(), 'path failed to match for ' . $name);
 
-            $params['requirements'] = isset($params['requirements']) ? $params['requirements'] : array();
+            $params['requirements'] = isset($params['requirements']) ? $params['requirements'] : [];
             $requirements = $route->getRequirements();
             unset($requirements['_method']);
-            $this->assertEquals($params['requirements'], $requirements, 'requirements failed to match for '.$name);
+            $this->assertSame($params['requirements'], $requirements, 'requirements failed to match for ' . $name);
 
-            $this->assertContains($params['controller'], $route->getDefault('_controller'), 'controller failed to match for '.$name);
+            $this->assertContains($params['controller'], $route->getDefault('_controller'), 'controller failed to match for ' . $name);
             if (isset($params['condition'])) {
-                $this->assertEquals($params['condition'], $route->getCondition(), 'condition failed to match for '.$name);
+                $this->assertSame($params['condition'], $route->getCondition(), 'condition failed to match for ' . $name);
             }
         }
     }
@@ -210,16 +210,16 @@ class RestRouteLoaderTest extends LoaderTest
             $route = $collection->get($name);
 
             $this->assertNotNull($route, "no route found for '$name'");
-            $this->assertEquals($params['path'], $route->getPath(), 'path failed to match for '.$name);
+            $this->assertSame($params['path'], $route->getPath(), 'path failed to match for ' . $name);
 
-            $params['requirements'] = isset($params['requirements']) ? $params['requirements'] : array();
+            $params['requirements'] = isset($params['requirements']) ? $params['requirements'] : [];
             $requirements = $route->getRequirements();
             unset($requirements['_method']);
-            $this->assertEquals($params['requirements'], $requirements, 'requirements failed to match for '.$name);
+            $this->assertSame($params['requirements'], $requirements, 'requirements failed to match for ' . $name);
 
-            $this->assertContains($params['controller'], $route->getDefault('_controller'), 'controller failed to match for '.$name);
+            $this->assertContains($params['controller'], $route->getDefault('_controller'), 'controller failed to match for ' . $name);
             if (isset($params['condition']) && true) {
-                $this->assertEquals($params['condition'], $route->getCondition(), 'condition failed to match for '.$name);
+                $this->assertSame($params['condition'], $route->getCondition(), 'condition failed to match for ' . $name);
             }
         }
     }
@@ -237,8 +237,8 @@ class RestRouteLoaderTest extends LoaderTest
         $routeCustom = $collection->get('custom_user');
         $routeWithRequirements = $collection->get('get_user');
 
-        $this->assertEquals('custom', $routeCustom->getRequirement('_format'));
-        $this->assertEquals('json|xml|html', $routeWithRequirements->getRequirement('_format'));
+        $this->assertSame('custom', $routeCustom->getRequirement('_format'));
+        $this->assertSame('json|xml|html', $routeWithRequirements->getRequirement('_format'));
     }
 
     /**
@@ -253,12 +253,12 @@ class RestRouteLoaderTest extends LoaderTest
         // get the path for the prefixed controller, and verify it is prefixed
         $collection = $loader->load(AnnotatedPrefixedController::class, 'rest');
         $prefixedRoute = $collection->get('get_something');
-        $this->assertEquals('/aprefix/', substr($prefixedRoute->getPath(), 0, 9));
+        $this->assertSame('/aprefix/', substr($prefixedRoute->getPath(), 0, 9));
 
         // get the path for the non-prefixed controller, and verify it's not prefixed
         $collection2 = $loader->load(UsersController::class, 'rest');
         $nonPrefixedRoute = $collection2->get('get_users');
-        $this->assertNotEquals('/aprefix/', substr($nonPrefixedRoute->getPath(), 0, 9));
+        $this->assertNotSame('/aprefix/', substr($nonPrefixedRoute->getPath(), 0, 9));
     }
 
     /**
@@ -274,24 +274,24 @@ class RestRouteLoaderTest extends LoaderTest
         $subsubcollection = $this->loadFromControllerFixture('UserTopicCommentsController');
 
         // resource actions
-        $this->assertEquals($expectedMethod, $collection->get('new_users')->getMethods());
-        $this->assertEquals($expectedMethod, $collection->get('edit_user')->getMethods());
-        $this->assertEquals($expectedMethod, $collection->get('remove_user')->getMethods());
+        $this->assertSame($expectedMethod, $collection->get('new_users')->getMethods());
+        $this->assertSame($expectedMethod, $collection->get('edit_user')->getMethods());
+        $this->assertSame($expectedMethod, $collection->get('remove_user')->getMethods());
 
         // subresource actions
-        $this->assertEquals($expectedMethod, $collection->get('new_user_comments')->getMethods());
-        $this->assertEquals($expectedMethod, $collection->get('edit_user_comment')->getMethods());
-        $this->assertEquals($expectedMethod, $collection->get('remove_user_comment')->getMethods());
+        $this->assertSame($expectedMethod, $collection->get('new_user_comments')->getMethods());
+        $this->assertSame($expectedMethod, $collection->get('edit_user_comment')->getMethods());
+        $this->assertSame($expectedMethod, $collection->get('remove_user_comment')->getMethods());
 
         // resource collection actions
-        $this->assertEquals($expectedMethod, $subcollection->get('new_topics')->getMethods());
-        $this->assertEquals($expectedMethod, $subcollection->get('edit_topic')->getMethods());
-        $this->assertEquals($expectedMethod, $subcollection->get('remove_topic')->getMethods());
+        $this->assertSame($expectedMethod, $subcollection->get('new_topics')->getMethods());
+        $this->assertSame($expectedMethod, $subcollection->get('edit_topic')->getMethods());
+        $this->assertSame($expectedMethod, $subcollection->get('remove_topic')->getMethods());
 
         // resource collection's resource collection actions
-        $this->assertEquals($expectedMethod, $subsubcollection->get('new_comments')->getMethods());
-        $this->assertEquals($expectedMethod, $subsubcollection->get('edit_comment')->getMethods());
-        $this->assertEquals($expectedMethod, $subsubcollection->get('remove_comment')->getMethods());
+        $this->assertSame($expectedMethod, $subsubcollection->get('new_comments')->getMethods());
+        $this->assertSame($expectedMethod, $subsubcollection->get('edit_comment')->getMethods());
+        $this->assertSame($expectedMethod, $subsubcollection->get('remove_comment')->getMethods());
     }
 
     /**
@@ -328,8 +328,8 @@ class RestRouteLoaderTest extends LoaderTest
         $collection = $this->loadFromControllerFixture('MediaController');
 
         $this->assertCount(2, $collection->all());
-        $this->assertEquals($expectedMethod, $collection->get('get_media')->getMethods());
-        $this->assertEquals($expectedMethod, $collection->get('cget_media')->getMethods());
+        $this->assertSame($expectedMethod, $collection->get('get_media')->getMethods());
+        $this->assertSame($expectedMethod, $collection->get('cget_media')->getMethods());
     }
 
     /**
@@ -393,13 +393,13 @@ class RestRouteLoaderTest extends LoaderTest
         $collection = $this->loadFromControllerFixture('TypeHintedController');
 
         $this->assertNotNull($collection->get('get_articles'), 'route for "get_articles" does not exist');
-        $this->assertEquals('/articles.{_format}', $collection->get('get_articles')->getPath());
+        $this->assertSame('/articles.{_format}', $collection->get('get_articles')->getPath());
         $this->assertNotNull($collection->get('post_articles'), 'route for "post_articles" does not exist');
-        $this->assertEquals('/articles.{_format}', $collection->get('post_articles')->getPath());
+        $this->assertSame('/articles.{_format}', $collection->get('post_articles')->getPath());
         $this->assertNotNull($collection->get('get_article'), 'route for "get_article" does not exist');
-        $this->assertEquals('/articles/{id}.{_format}', $collection->get('get_article')->getPath());
+        $this->assertSame('/articles/{id}.{_format}', $collection->get('get_article')->getPath());
         $this->assertNotNull($collection->get('post_article'), 'route for "post_article" does not exist');
-        $this->assertEquals('/articles/{id}.{_format}', $collection->get('post_article')->getPath());
+        $this->assertSame('/articles/{id}.{_format}', $collection->get('post_article')->getPath());
     }
 
     /**
@@ -411,11 +411,11 @@ class RestRouteLoaderTest extends LoaderTest
         $collection = $this->loadFromControllerFixture('OldTypeHintedController');
 
         $this->assertNotNull($collection->get('old_type.get_articles'), 'route for "old_type.get_articles" does not exist');
-        $this->assertEquals('/prefix/articles.{_format}', $collection->get('old_type.get_articles')->getPath());
+        $this->assertSame('/prefix/articles.{_format}', $collection->get('old_type.get_articles')->getPath());
         $this->assertNotNull($collection->get('old_type.post_articles'), 'route for "old_type.post_articles" does not exist');
-        $this->assertEquals('/prefix/articles.{_format}', $collection->get('old_type.post_articles')->getPath());
+        $this->assertSame('/prefix/articles.{_format}', $collection->get('old_type.post_articles')->getPath());
         $this->assertNotNull($collection->get('old_type.get_article'), 'route for "old_type.get_article" does not exist');
-        $this->assertEquals('/prefix/articles/{id}.{_format}', $collection->get('old_type.get_article')->getPath());
+        $this->assertSame('/prefix/articles/{id}.{_format}', $collection->get('old_type.get_article')->getPath());
         $this->assertNull($collection->get('post_article'));
         $this->assertNull($collection->get('old_type.post_article'));
     }
@@ -446,6 +446,6 @@ class RestRouteLoaderTest extends LoaderTest
         $loader = $this->getControllerLoader($formats, $hasMethodPrefix);
         $loader->getControllerReader()->getActionReader()->setNamePrefix($namePrefix);
 
-        return $loader->load('HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller\\'.$fixtureName, 'rest');
+        return $loader->load('HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller\\' . $fixtureName, 'rest');
     }
 }

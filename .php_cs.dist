@@ -12,8 +12,28 @@ EOF;
 
 return PhpCsFixer\Config::create()
     ->setRules(array(
-        'psr0' => true,
-        'header_comment' => ['header' => $header],
+        '@Symfony' => true,
+        '@Symfony:risky' => true,
+        'ordered_imports' => true,
+        'concat_space' => ['spacing' => 'one'],
+        'array_syntax' => ['syntax' => 'short'],
+        'phpdoc_align' => false,
+        'class_definition' => [
+            'multiLineExtendsEachSingleLine' => true,
+        ],
+        'linebreak_after_opening_tag' => true,
+        'declare_strict_types' => false,
+        'no_php4_constructor' => true,
+        'no_superfluous_phpdoc_tags' => false,
+        'no_unreachable_default_argument_value' => true,
+        'no_useless_else' => true,
+        'no_useless_return' => true,
+        'php_unit_strict' => false,
+        'single_line_throw' => false,
+        'phpdoc_order' => true,
+        'semicolon_after_instruction' => true,
+        'strict_comparison' => true,
+        'strict_param' => true,
     ))
     ->setRiskyAllowed(true)
     ->setFinder(

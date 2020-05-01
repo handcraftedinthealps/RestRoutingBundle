@@ -22,15 +22,15 @@ class ClassUtils
         $class = false;
         $namespace = false;
         $tokens = token_get_all(file_get_contents($file));
-        for ($i = 0, $count = count($tokens); $i < $count; ++$i) {
+        for ($i = 0, $count = \count($tokens); $i < $count; ++$i) {
             $token = $tokens[$i];
 
-            if (!is_array($token)) {
+            if (!\is_array($token)) {
                 continue;
             }
 
             if (true === $class && T_STRING === $token[0]) {
-                return $namespace.'\\'.$token[1];
+                return $namespace . '\\' . $token[1];
             }
 
             if (true === $namespace && T_STRING === $token[0]) {
@@ -38,7 +38,7 @@ class ClassUtils
                 do {
                     $namespace .= $token[1];
                     $token = $tokens[++$i];
-                } while ($i < $count && is_array($token) && in_array($token[0], array(T_NS_SEPARATOR, T_STRING)));
+                } while ($i < $count && \is_array($token) && \in_array($token[0], [T_NS_SEPARATOR, T_STRING], true));
             }
 
             if (T_CLASS === $token[0]) {

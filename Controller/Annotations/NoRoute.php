@@ -28,7 +28,7 @@ class NoRoute extends BaseRoute
         parent::__construct($data);
 
         if (!$this->getMethods()) {
-            $this->setMethods((array)$this->getMethod());
+            $this->setMethods((array) $this->getMethod());
         }
     }
 
@@ -37,7 +37,6 @@ class NoRoute extends BaseRoute
      */
     public function getMethod()
     {
-        return;
     }
 }
 

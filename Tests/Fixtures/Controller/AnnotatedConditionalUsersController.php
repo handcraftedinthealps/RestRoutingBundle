@@ -16,15 +16,15 @@ use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Head;
 use FOS\RestBundle\Controller\Annotations\Link;
-use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\NoRoute;
 use FOS\RestBundle\Controller\Annotations\Options;
 use FOS\RestBundle\Controller\Annotations\Patch;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\RestBundle\Controller\Annotations\Unlink;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\NoRoute;
 use HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\User;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AnnotatedConditionalUsersController extends AbstractController
 {

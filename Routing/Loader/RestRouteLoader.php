@@ -69,11 +69,11 @@ class RestRouteLoader extends Loader
      */
     public function supports($resource, $type = null): bool
     {
-        return is_string($resource)
+        return \is_string($resource)
             && 'rest' === $type
-            && !in_array(
+            && !\in_array(
                 pathinfo($resource, PATHINFO_EXTENSION),
-                ['xml', 'yml', 'yaml']
+                ['xml', 'yml', 'yaml'], true
             );
     }
 
@@ -95,13 +95,13 @@ class RestRouteLoader extends Loader
 
         if ($this->container->has($controller)) {
             // service_id
-            $prefix = $controller.'::';
+            $prefix = $controller . '::';
 
-            $class = get_class($this->container->get($controller));
+            $class = \get_class($this->container->get($controller));
         } elseif (class_exists($controller)) {
             // full class name
             $class = $controller;
-            $prefix = $class.'::';
+            $prefix = $class . '::';
         }
 
         if (empty($class)) {

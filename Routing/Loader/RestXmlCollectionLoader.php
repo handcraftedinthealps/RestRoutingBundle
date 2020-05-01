@@ -69,7 +69,7 @@ class RestXmlCollectionLoader extends XmlFileLoader
                 $parent = (string) $node->getAttribute('parent');
                 $type = (string) $node->getAttribute('type');
                 $host = isset($config['host']) ? $config['host'] : null;
-                $currentDir = dirname($path);
+                $currentDir = \dirname($path);
 
                 $parents = [];
                 if (!empty($parent)) {
@@ -83,7 +83,7 @@ class RestXmlCollectionLoader extends XmlFileLoader
                 $imported = $this->processor->importResource($this, $resource, $parents, $prefix, $namePrefix, $type, $currentDir);
 
                 if (!empty($name) && $imported instanceof RestRouteCollection) {
-                    $parents[] = (!empty($prefix) ? $prefix.'/' : '').$imported->getSingularName();
+                    $parents[] = (!empty($prefix) ? $prefix . '/' : '') . $imported->getSingularName();
                     $prefix = null;
 
                     $this->collectionParents[$name] = $parents;
@@ -111,7 +111,7 @@ class RestXmlCollectionLoader extends XmlFileLoader
             $path = $node->getAttribute('path');
             // append format placeholder if not present
             if (false === strpos($path, '{_format}')) {
-                $node->setAttribute('path', $path.'.{_format}');
+                $node->setAttribute('path', $path . '.{_format}');
             }
 
             // set format requirement if configured globally
@@ -200,16 +200,16 @@ class RestXmlCollectionLoader extends XmlFileLoader
      */
     public function supports($resource, $type = null): bool
     {
-        return is_string($resource) &&
+        return \is_string($resource) &&
             'xml' === pathinfo($resource, PATHINFO_EXTENSION) &&
             'rest' === $type;
     }
 
     protected function validate(\DOMDocument $dom): void
     {
-        $restRoutinglocation = realpath(__DIR__.'/../../Resources/config/schema/routing/rest_routing-1.0.xsd');
+        $restRoutinglocation = realpath(__DIR__ . '/../../Resources/config/schema/routing/rest_routing-1.0.xsd');
         $restRoutinglocation = rawurlencode(str_replace('\\', '/', $restRoutinglocation));
-        $routinglocation = realpath(__DIR__.'/../../Resources/config/schema/routing-1.0.xsd');
+        $routinglocation = realpath(__DIR__ . '/../../Resources/config/schema/routing-1.0.xsd');
         $routinglocation = rawurlencode(str_replace('\\', '/', $routinglocation));
         $source = <<<EOF
 <?xml version="1.0" encoding="utf-8" ?>

@@ -15,7 +15,7 @@ namespace HandcraftedInTheAlps\RestRoutingBundle\DependencyInjection\CompilerPas
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class FormatsCompilerPass  implements CompilerPassInterface
+class FormatsCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
@@ -32,7 +32,7 @@ class FormatsCompilerPass  implements CompilerPassInterface
             // set routing bundle defaults when not configured
             $formats = [
                 'json' => true,
-                'xml' => true
+                'xml' => true,
             ];
         }
 
@@ -49,12 +49,12 @@ class FormatsCompilerPass  implements CompilerPassInterface
 
         $formats = $container->getDefinition('fos_rest.view_handler.default')->getArgument(3);
 
-        if (!is_array($formats)) {
+        if (!\is_array($formats)) {
             // FOSRestBundle 2.8
             $formats = $container->getDefinition('fos_rest.view_handler.default')->getArgument(4);
         }
 
-        if (!is_array($formats)) {
+        if (!\is_array($formats)) {
             // could not detected FOSRestBundle formats
             return [];
         }

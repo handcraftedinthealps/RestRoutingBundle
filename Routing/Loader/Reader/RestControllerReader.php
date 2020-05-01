@@ -13,15 +13,15 @@
 namespace HandcraftedInTheAlps\RestRoutingBundle\Routing\Loader\Reader;
 
 use Doctrine\Common\Annotations\Reader;
-use FOS\RestBundle\Routing\ClassResourceInterface as OldClassResourceInterface;
-use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\RouteResource;
-use FOS\RestBundle\Controller\Annotations\RouteResource as OldRouteResource;
-use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\Prefix;
-use FOS\RestBundle\Controller\Annotations\Prefix as OldPrefix;
-use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\Version;
-use FOS\RestBundle\Controller\Annotations\Version as OldVersion;
-use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\NamePrefix;
 use FOS\RestBundle\Controller\Annotations\NamePrefix as OldNamePrefix;
+use FOS\RestBundle\Controller\Annotations\Prefix as OldPrefix;
+use FOS\RestBundle\Controller\Annotations\RouteResource as OldRouteResource;
+use FOS\RestBundle\Controller\Annotations\Version as OldVersion;
+use FOS\RestBundle\Routing\ClassResourceInterface as OldClassResourceInterface;
+use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\NamePrefix;
+use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\Prefix;
+use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\RouteResource;
+use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\Version;
 use HandcraftedInTheAlps\RestRoutingBundle\Routing\ClassResourceInterface;
 use HandcraftedInTheAlps\RestRoutingBundle\Routing\RestRouteCollection;
 use Symfony\Component\Config\Resource\FileResource;
@@ -57,8 +57,7 @@ class RestControllerReader
         // read prefix annotation
         if ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, Prefix::class)) {
             $this->actionReader->setRoutePrefix($annotation->value);
-        } elseif ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, OldPrefix::class))
-        {
+        } elseif ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, OldPrefix::class)) {
             $this->actionReader->setRoutePrefix($annotation->value);
         }
 

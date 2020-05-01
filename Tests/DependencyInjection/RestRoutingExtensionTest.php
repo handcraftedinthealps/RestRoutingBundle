@@ -50,7 +50,7 @@ class RestRoutingExtensionTest extends TestCase
     public function setUp(): void
     {
         $this->container = new ContainerBuilder();
-        $this->container->setParameter('kernel.bundles', array('JMSSerializerBundle' => true));
+        $this->container->setParameter('kernel.bundles', ['JMSSerializerBundle' => true]);
         $this->container->setParameter('kernel.debug', false);
         $this->includeFormat = true;
         $this->defaultFormat = null;
@@ -175,7 +175,7 @@ class RestRoutingExtensionTest extends TestCase
         $this->assertEquals($locatorRef, $arguments[0]);
         $this->assertEquals($processorRef, $arguments[1]);
         $this->assertSame($includeFormat, $arguments[2]);
-        $this->assertEquals($formats, $arguments[3]);
+        $this->assertSame($formats, $arguments[3]);
         $this->assertSame($defaultFormat, $arguments[4]);
         $this->assertArrayHasKey('routing.loader', $loader->getTags());
     }

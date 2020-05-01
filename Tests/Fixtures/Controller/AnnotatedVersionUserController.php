@@ -12,8 +12,8 @@
 
 namespace HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller;
 
-use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\Version;
 use FOS\RestBundle\Controller\Annotations\Get;
+use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\Version;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**

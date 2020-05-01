@@ -13,8 +13,8 @@
 namespace HandcraftedInTheAlps\RestRoutingBundle\Tests\Routing\Loader;
 
 use Doctrine\Common\Annotations\AnnotationReader;
-use HandcraftedInTheAlps\RestRoutingBundle\Inflector\DoctrineInflector;
 use FOS\RestBundle\Request\ParamReader;
+use HandcraftedInTheAlps\RestRoutingBundle\Inflector\DoctrineInflector;
 use HandcraftedInTheAlps\RestRoutingBundle\Routing\Loader\Reader\RestActionReader;
 use HandcraftedInTheAlps\RestRoutingBundle\Routing\Loader\Reader\RestControllerReader;
 use HandcraftedInTheAlps\RestRoutingBundle\Routing\Loader\RestRouteLoader;
@@ -44,7 +44,7 @@ abstract class LoaderTest extends TestCase
      */
     protected function loadEtalonRoutesInfo($etalonName)
     {
-        return Yaml::parse(file_get_contents(__DIR__.'/../../Fixtures/Etalon/'.$etalonName));
+        return Yaml::parse(file_get_contents(__DIR__ . '/../../Fixtures/Etalon/' . $etalonName));
     }
 
     private function getAnnotationReader()

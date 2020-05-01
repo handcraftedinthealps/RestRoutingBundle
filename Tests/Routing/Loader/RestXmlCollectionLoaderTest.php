@@ -60,8 +60,8 @@ class RestXmlCollectionLoaderTest extends LoaderTest
             $methods = $route->getMethods();
 
             $this->assertNotNull($route, $name);
-            $this->assertEquals($params['path'], $route->getPath(), $name);
-            $this->assertEquals($params['methods'][0], $methods[0], $name);
+            $this->assertSame($params['path'], $route->getPath(), $name);
+            $this->assertSame($params['methods'][0], $methods[0], $name);
             $this->assertContains($params['controller'], $route->getDefault('_controller'), $name);
         }
     }
@@ -79,8 +79,8 @@ class RestXmlCollectionLoaderTest extends LoaderTest
             $methods = $route->getMethods();
 
             $this->assertNotNull($route, $name);
-            $this->assertEquals($params['path'], $route->getPath(), $name);
-            $this->assertEquals($params['methods'][0], $methods[0], $name);
+            $this->assertSame($params['path'], $route->getPath(), $name);
+            $this->assertSame($params['methods'][0], $methods[0], $name);
             $this->assertContains($params['controller'], $route->getDefault('_controller'), $name);
         }
     }
@@ -90,9 +90,9 @@ class RestXmlCollectionLoaderTest extends LoaderTest
         $collection = $this->loadFromXmlCollectionFixture('routes.xml');
         $route = $collection->get('get_users');
 
-        $this->assertEquals('/users.{_format}', $route->getPath());
-        $this->assertEquals('json|xml|html', $route->getRequirement('_format'));
-        $this->assertEquals('RestRoutingBundle:UsersController:getUsers', $route->getDefault('_controller'));
+        $this->assertSame('/users.{_format}', $route->getPath());
+        $this->assertSame('json|xml|html', $route->getRequirement('_format'));
+        $this->assertSame('RestRoutingBundle:UsersController:getUsers', $route->getDefault('_controller'));
     }
 
     public function testManualRoutesWithoutIncludeFormat()
@@ -100,7 +100,7 @@ class RestXmlCollectionLoaderTest extends LoaderTest
         $collection = $this->loadFromXmlCollectionFixture('routes.xml', false);
         $route = $collection->get('get_users');
 
-        $this->assertEquals('/users', $route->getPath());
+        $this->assertSame('/users', $route->getPath());
     }
 
     public function testManualRoutesWithFormats()
@@ -114,7 +114,7 @@ class RestXmlCollectionLoaderTest extends LoaderTest
         );
         $route = $collection->get('get_users');
 
-        $this->assertEquals('json', $route->getRequirement('_format'));
+        $this->assertSame('json', $route->getRequirement('_format'));
     }
 
     public function testManualRoutesWithDefaultFormat()
@@ -131,7 +131,7 @@ class RestXmlCollectionLoaderTest extends LoaderTest
         );
         $route = $collection->get('get_users');
 
-        $this->assertEquals('xml', $route->getDefault('_format'));
+        $this->assertSame('xml', $route->getDefault('_format'));
     }
 
     public function testForwardOptionsRequirementsAndDefaults()
@@ -140,8 +140,8 @@ class RestXmlCollectionLoaderTest extends LoaderTest
 
         foreach ($collection as $route) {
             $this->assertTrue((bool) $route->getOption('expose'));
-            $this->assertEquals('[a-z]+', $route->getRequirement('slug'));
-            $this->assertEquals('home', $route->getDefault('slug'));
+            $this->assertSame('[a-z]+', $route->getRequirement('slug'));
+            $this->assertSame('home', $route->getDefault('slug'));
         }
     }
 
@@ -166,7 +166,7 @@ class RestXmlCollectionLoaderTest extends LoaderTest
         $defaultFormat = null
     ) {
         $collectionLoader = new RestXmlCollectionLoader(
-            new FileLocator([__DIR__.'/../../Fixtures/Routes']),
+            new FileLocator([__DIR__ . '/../../Fixtures/Routes']),
             new RestRouteProcessor(),
             $includeFormat,
             $formats,
@@ -184,6 +184,6 @@ class RestXmlCollectionLoaderTest extends LoaderTest
         $collection = $this->loadFromXmlCollectionFixture('routes.xml');
         $route = $collection->get('get_users');
 
-        $this->assertEquals('rest.local', $route->getHost());
+        $this->assertSame('rest.local', $route->getHost());
     }
 }

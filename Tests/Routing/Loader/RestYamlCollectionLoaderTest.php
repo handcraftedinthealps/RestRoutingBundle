@@ -33,7 +33,7 @@ class RestYamlCollectionLoaderTest extends LoaderTest
     public function testLoadDoesNothingIfEmpty()
     {
         $collection = $this->loadFromYamlCollectionFixture('empty.yml');
-        $this->assertEquals([], $collection->all());
+        $this->assertSame([], $collection->all());
     }
 
     /**
@@ -82,8 +82,8 @@ class RestYamlCollectionLoaderTest extends LoaderTest
             $methods = $route->getMethods();
 
             $this->assertNotNull($route, $name);
-            $this->assertEquals($params['path'], $route->getPath(), $name);
-            $this->assertEquals($params['methods'][0], $methods[0], $name);
+            $this->assertSame($params['path'], $route->getPath(), $name);
+            $this->assertSame($params['methods'][0], $methods[0], $name);
             $this->assertContains($params['controller'], $route->getDefault('_controller'), $name);
         }
     }
@@ -101,8 +101,8 @@ class RestYamlCollectionLoaderTest extends LoaderTest
             $methods = $route->getMethods();
 
             $this->assertNotNull($route, $name);
-            $this->assertEquals($params['path'], $route->getPath(), $name);
-            $this->assertEquals($params['methods'][0], $methods[0], $name);
+            $this->assertSame($params['path'], $route->getPath(), $name);
+            $this->assertSame($params['methods'][0], $methods[0], $name);
             $this->assertContains($params['controller'], $route->getDefault('_controller'), $name);
         }
     }
@@ -120,8 +120,8 @@ class RestYamlCollectionLoaderTest extends LoaderTest
             $methods = $route->getMethods();
 
             $this->assertNotNull($route, $name);
-            $this->assertEquals($params['path'], $route->getPath(), $name);
-            $this->assertEquals($params['methods'][0], $methods[0], $name);
+            $this->assertSame($params['path'], $route->getPath(), $name);
+            $this->assertSame($params['methods'][0], $methods[0], $name);
             $this->assertContains($params['controller'], $route->getDefault('_controller'), $name);
         }
     }
@@ -136,7 +136,7 @@ class RestYamlCollectionLoaderTest extends LoaderTest
         foreach ($collection as $route) {
             $names[] = $route->getPath();
         }
-        $this->assertCount(count($names), array_unique($names));
+        $this->assertCount(\count($names), array_unique($names));
     }
 
     public function testForwardOptionsRequirementsAndDefaults()
@@ -145,8 +145,8 @@ class RestYamlCollectionLoaderTest extends LoaderTest
 
         foreach ($collection as $route) {
             $this->assertTrue($route->getOption('expose'));
-            $this->assertEquals('[a-z]+', $route->getRequirement('slug'));
-            $this->assertEquals('home', $route->getDefault('slug'));
+            $this->assertSame('[a-z]+', $route->getRequirement('slug'));
+            $this->assertSame('home', $route->getDefault('slug'));
         }
     }
 
@@ -155,9 +155,9 @@ class RestYamlCollectionLoaderTest extends LoaderTest
         $collection = $this->loadFromYamlCollectionFixture('routes.yml');
         $route = $collection->get('get_users');
 
-        $this->assertEquals('/users.{_format}', $route->getPath());
-        $this->assertEquals('json|xml|html', $route->getRequirement('_format'));
-        $this->assertEquals('RestRoutingBundle:UsersController:getUsers', $route->getDefault('_controller'));
+        $this->assertSame('/users.{_format}', $route->getPath());
+        $this->assertSame('json|xml|html', $route->getRequirement('_format'));
+        $this->assertSame('RestRoutingBundle:UsersController:getUsers', $route->getDefault('_controller'));
     }
 
     public function testManualRoutesWithoutIncludeFormat()
@@ -165,7 +165,7 @@ class RestYamlCollectionLoaderTest extends LoaderTest
         $collection = $this->loadFromYamlCollectionFixture('routes.yml', false);
         $route = $collection->get('get_users');
 
-        $this->assertEquals('/users', $route->getPath());
+        $this->assertSame('/users', $route->getPath());
     }
 
     public function testManualRoutesWithFormats()
@@ -179,7 +179,7 @@ class RestYamlCollectionLoaderTest extends LoaderTest
         );
         $route = $collection->get('get_users');
 
-        $this->assertEquals('json', $route->getRequirement('_format'));
+        $this->assertSame('json', $route->getRequirement('_format'));
     }
 
     public function testManualRoutesWithDefaultFormat()
@@ -196,7 +196,7 @@ class RestYamlCollectionLoaderTest extends LoaderTest
         );
         $route = $collection->get('get_users');
 
-        $this->assertEquals('xml', $route->getDefault('_format'));
+        $this->assertSame('xml', $route->getDefault('_format'));
     }
 
     /**
@@ -211,13 +211,13 @@ class RestYamlCollectionLoaderTest extends LoaderTest
 
         // We register the controller in the fake container by its class name
         $this->container = new Container();
-        $this->container->set(get_class($controller), $controller);
+        $this->container->set(\get_class($controller), $controller);
 
         $collection = $this->loadFromYamlCollectionFixture('users_collection.yml');
 
         $route = $collection->get('get_users');
 
-        $this->assertEquals(UsersController::class.'::getUsersAction', $route->getDefault('_controller'));
+        $this->assertSame(UsersController::class . '::getUsersAction', $route->getDefault('_controller'));
 
         $this->container = null;
     }
@@ -235,8 +235,8 @@ class RestYamlCollectionLoaderTest extends LoaderTest
             $methods = $route->getMethods();
 
             $this->assertNotNull($route, $name);
-            $this->assertEquals($params['path'], $route->getPath(), $name);
-            $this->assertEquals($params['method'], $methods[0], $name);
+            $this->assertSame($params['path'], $route->getPath(), $name);
+            $this->assertSame($params['method'], $methods[0], $name);
             $this->assertContains($params['controller'], $route->getDefault('_controller'), $name);
         }
 
@@ -265,7 +265,7 @@ class RestYamlCollectionLoaderTest extends LoaderTest
         $defaultFormat = null
     ) {
         $collectionLoader = new RestYamlCollectionLoader(
-            new FileLocator([__DIR__.'/../../Fixtures/Routes']),
+            new FileLocator([__DIR__ . '/../../Fixtures/Routes']),
             new RestRouteProcessor(),
             $includeFormat,
             $formats,
@@ -284,6 +284,6 @@ class RestYamlCollectionLoaderTest extends LoaderTest
         $collection = $this->loadFromYamlCollectionFixture('routes.yml');
         $route = $collection->get('get_users');
 
-        $this->assertEquals('rest.local', $route->getHost());
+        $this->assertSame('rest.local', $route->getHost());
     }
 }

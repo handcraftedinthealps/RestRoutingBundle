@@ -73,7 +73,7 @@ class RestYamlCollectionLoader extends YamlFileLoader
         }
 
         // not an array
-        if (!is_array($config)) {
+        if (!\is_array($config)) {
             throw new \InvalidArgumentException(sprintf('The file "%s" must contain a Yaml mapping (an array).', $path));
         }
 
@@ -89,7 +89,7 @@ class RestYamlCollectionLoader extends YamlFileLoader
                 $requirements = isset($config['requirements']) ? $config['requirements'] : [];
                 $defaults = isset($config['defaults']) ? $config['defaults'] : [];
                 $options = isset($config['options']) ? $config['options'] : [];
-                $currentDir = dirname($path);
+                $currentDir = \dirname($path);
 
                 $parents = [];
                 if (!empty($parent)) {
@@ -103,7 +103,7 @@ class RestYamlCollectionLoader extends YamlFileLoader
                 $imported = $this->processor->importResource($this, $resource, $parents, $prefix, $namePrefix, $type, $currentDir);
 
                 if ($imported instanceof RestRouteCollection) {
-                    $parents[] = ($prefix ? $prefix.'/' : '').$imported->getSingularName();
+                    $parents[] = ($prefix ? $prefix . '/' : '') . $imported->getSingularName();
                     $prefix = null;
                     $namePrefix = null;
 
@@ -156,8 +156,8 @@ class RestYamlCollectionLoader extends YamlFileLoader
      */
     public function supports($resource, $type = null): bool
     {
-        return 'rest' === $type && is_string($resource) &&
-            in_array(pathinfo($resource, PATHINFO_EXTENSION), array('yaml', 'yml'), true);
+        return 'rest' === $type && \is_string($resource) &&
+            \in_array(pathinfo($resource, PATHINFO_EXTENSION), ['yaml', 'yml'], true);
     }
 
     public function addParentNamePrefix(RouteCollection $collection, ?string $namePrefix): RouteCollection
@@ -169,7 +169,7 @@ class RestYamlCollectionLoader extends YamlFileLoader
         $iterator = $collection->getIterator();
 
         foreach ($iterator as $key1 => $route1) {
-            $collection->add($namePrefix.$key1, $route1);
+            $collection->add($namePrefix . $key1, $route1);
             $collection->remove($key1);
         }
 

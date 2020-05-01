@@ -28,7 +28,7 @@ fos_rest:
 **after**
 
 ```yaml
-fos_rest_routing:
+handcraftedinthealps_rest_routing:
     routing_loader:
         default_format: 'json'
         prefix_methods: true

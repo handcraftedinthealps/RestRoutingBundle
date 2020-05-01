@@ -24,7 +24,7 @@ use Symfony\Component\DependencyInjection\Reference;
  * @author Bulat Shakirzyanov <avalanche123>
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class FOSRestRoutingExtensionTest extends TestCase
+class RestRoutingExtensionTest extends TestCase
 {
     /**
      * @var ContainerBuilder
@@ -65,7 +65,7 @@ class FOSRestRoutingExtensionTest extends TestCase
     {
         $this->load(
             [
-                'fos_rest_routing' => [
+                'handcraftedinthealps_rest_routing' => [
                     'routing_loader' => [
                         'include_format' => false,
                     ],
@@ -73,7 +73,7 @@ class FOSRestRoutingExtensionTest extends TestCase
             ]
         );
 
-        $yamlCollectionLoaderDefinitionName = 'fos_rest.routing.loader.yaml_collection';
+        $yamlCollectionLoaderDefinitionName = 'handcraftedinthealps_rest_routing.loader.yaml_collection';
         $this->assertValidRestFileLoader(
             $this->container->getDefinition($yamlCollectionLoaderDefinitionName),
             false,
@@ -81,7 +81,7 @@ class FOSRestRoutingExtensionTest extends TestCase
             $this->defaultFormat
         );
 
-        $xmlCollectionLoaderDefinitionName = 'fos_rest.routing.loader.xml_collection';
+        $xmlCollectionLoaderDefinitionName = 'handcraftedinthealps_rest_routing.loader.xml_collection';
         $this->assertValidRestFileLoader(
             $this->container->getDefinition($xmlCollectionLoaderDefinitionName),
             false,
@@ -94,7 +94,7 @@ class FOSRestRoutingExtensionTest extends TestCase
     {
         $this->load(
             [
-                'fos_rest_routing' => [
+                'handcraftedinthealps_rest_routing' => [
                     'routing_loader' => [
                         'default_format' => 'xml',
                     ],
@@ -102,7 +102,7 @@ class FOSRestRoutingExtensionTest extends TestCase
             ]
         );
 
-        $yamlCollectionLoaderDefinitionName = 'fos_rest.routing.loader.yaml_collection';
+        $yamlCollectionLoaderDefinitionName = 'handcraftedinthealps_rest_routing.loader.yaml_collection';
         $this->assertValidRestFileLoader(
             $this->container->getDefinition($yamlCollectionLoaderDefinitionName),
             $this->includeFormat,
@@ -110,7 +110,7 @@ class FOSRestRoutingExtensionTest extends TestCase
             'xml'
         );
 
-        $xmlCollectionLoaderDefinitionName = 'fos_rest.routing.loader.xml_collection';
+        $xmlCollectionLoaderDefinitionName = 'handcraftedinthealps_rest_routing.loader.xml_collection';
         $this->assertValidRestFileLoader(
             $this->container->getDefinition($xmlCollectionLoaderDefinitionName),
             $this->includeFormat,
@@ -123,7 +123,7 @@ class FOSRestRoutingExtensionTest extends TestCase
     {
         $this->load(
             [
-                'fos_rest_routing' => [
+                'handcraftedinthealps_rest_routing' => [
                     'routing_loader' => [
                         'default_format' => 'xml',
                         'formats' => [
@@ -135,7 +135,7 @@ class FOSRestRoutingExtensionTest extends TestCase
             ]
         );
 
-        $yamlCollectionLoaderDefinitionName = 'fos_rest.routing.loader.yaml_collection';
+        $yamlCollectionLoaderDefinitionName = 'handcraftedinthealps_rest_routing.loader.yaml_collection';
         $this->assertValidRestFileLoader(
             $this->container->getDefinition($yamlCollectionLoaderDefinitionName),
             $this->includeFormat,
@@ -143,7 +143,7 @@ class FOSRestRoutingExtensionTest extends TestCase
             'xml'
         );
 
-        $xmlCollectionLoaderDefinitionName = 'fos_rest.routing.loader.xml_collection';
+        $xmlCollectionLoaderDefinitionName = 'handcraftedinthealps_rest_routing.loader.xml_collection';
         $this->assertValidRestFileLoader(
             $this->container->getDefinition($xmlCollectionLoaderDefinitionName),
             $this->includeFormat,
@@ -167,7 +167,7 @@ class FOSRestRoutingExtensionTest extends TestCase
         $defaultFormat
     ) {
         $locatorRef = new Reference('file_locator');
-        $processorRef = new Reference('fos_rest.routing.loader.processor');
+        $processorRef = new Reference('handcraftedinthealps_rest_routing.loader.processor');
         $arguments = $loader->getArguments();
 
         $this->assertCount(5, $arguments);

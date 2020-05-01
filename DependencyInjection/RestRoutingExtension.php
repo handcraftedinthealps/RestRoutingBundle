@@ -40,22 +40,22 @@ class RestRoutingExtension extends Extension
 
         $formats = array_filter($config['routing_loader']['formats']);
 
-        $container->getDefinition('fos_rest.routing.loader.controller')->addArgument($config['routing_loader']['default_format']);
+        $container->getDefinition('handcraftedinthealps_rest_routing.loader.controller')->addArgument($config['routing_loader']['default_format']);
 
-        $container->getDefinition('fos_rest.routing.loader.yaml_collection')->replaceArgument(4, $config['routing_loader']['default_format']);
-        $container->getDefinition('fos_rest.routing.loader.xml_collection')->replaceArgument(4, $config['routing_loader']['default_format']);
+        $container->getDefinition('handcraftedinthealps_rest_routing.loader.yaml_collection')->replaceArgument(4, $config['routing_loader']['default_format']);
+        $container->getDefinition('handcraftedinthealps_rest_routing.loader.xml_collection')->replaceArgument(4, $config['routing_loader']['default_format']);
 
-        $container->getDefinition('fos_rest.routing.loader.yaml_collection')->replaceArgument(2, $config['routing_loader']['include_format']);
-        $container->getDefinition('fos_rest.routing.loader.yaml_collection')->replaceArgument(3, $formats);
-        $container->getDefinition('fos_rest.routing.loader.xml_collection')->replaceArgument(2, $config['routing_loader']['include_format']);
-        $container->getDefinition('fos_rest.routing.loader.xml_collection')->replaceArgument(3, $formats);
-        $container->getDefinition('fos_rest.routing.loader.reader.action')->replaceArgument(3, $config['routing_loader']['include_format']);
-        $container->getDefinition('fos_rest.routing.loader.reader.action')->replaceArgument(4, $formats);
-        $container->getDefinition('fos_rest.routing.loader.reader.action')->replaceArgument(5, $config['routing_loader']['prefix_methods']);
+        $container->getDefinition('handcraftedinthealps_rest_routing.loader.yaml_collection')->replaceArgument(2, $config['routing_loader']['include_format']);
+        $container->getDefinition('handcraftedinthealps_rest_routing.loader.yaml_collection')->replaceArgument(3, $formats);
+        $container->getDefinition('handcraftedinthealps_rest_routing.loader.xml_collection')->replaceArgument(2, $config['routing_loader']['include_format']);
+        $container->getDefinition('handcraftedinthealps_rest_routing.loader.xml_collection')->replaceArgument(3, $formats);
+        $container->getDefinition('handcraftedinthealps_rest_routing.loader.reader.action')->replaceArgument(3, $config['routing_loader']['include_format']);
+        $container->getDefinition('handcraftedinthealps_rest_routing.loader.reader.action')->replaceArgument(4, $formats);
+        $container->getDefinition('handcraftedinthealps_rest_routing.loader.reader.action')->replaceArgument(5, $config['routing_loader']['prefix_methods']);
 
         foreach ($config['service'] as $key => $service) {
             if (null !== $service) {
-                $container->setAlias('fos_rest.routing.'.$key, $service);
+                $container->setAlias('handcraftedinthealps_rest_routing.'.$key, $service);
             }
         }
     }

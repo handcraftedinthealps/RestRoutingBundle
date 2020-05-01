@@ -35,7 +35,7 @@ final class Configuration implements ConfigurationInterface
 
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('fos_rest_routing');
+        $treeBuilder = new TreeBuilder('handcraftedinthealps_rest_routing');
 
         $rootNode = $treeBuilder->getRootNode();
 

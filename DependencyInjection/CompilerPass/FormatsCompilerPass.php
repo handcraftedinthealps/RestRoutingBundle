@@ -18,7 +18,7 @@ class FormatsCompilerPass  implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        $formats = $container->getDefinition('fos_rest.routing.loader.yaml_collection')->getArgument(3);
+        $formats = $container->getDefinition('handcraftedinthealps_rest_routing.loader.yaml_collection')->getArgument(3);
 
         if (!empty($formats)) {
             // if formats are configured we do nothing
@@ -35,9 +35,9 @@ class FormatsCompilerPass  implements CompilerPassInterface
             ];
         }
 
-        $container->getDefinition('fos_rest.routing.loader.yaml_collection')->replaceArgument(3, $formats);
-        $container->getDefinition('fos_rest.routing.loader.xml_collection')->replaceArgument(3, $formats);
-        $container->getDefinition('fos_rest.routing.loader.reader.action')->replaceArgument(4, $formats);
+        $container->getDefinition('handcraftedinthealps_rest_routing.loader.yaml_collection')->replaceArgument(3, $formats);
+        $container->getDefinition('handcraftedinthealps_rest_routing.loader.xml_collection')->replaceArgument(3, $formats);
+        $container->getDefinition('handcraftedinthealps_rest_routing.loader.reader.action')->replaceArgument(4, $formats);
     }
 
     private function getFOSRestBundleFormats(ContainerBuilder $container): array

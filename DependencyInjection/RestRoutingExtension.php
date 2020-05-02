@@ -22,6 +22,11 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  */
 class RestRoutingExtension extends Extension
 {
+    public function getAlias()
+    {
+        return 'handcraftedinthealps_rest_routing';
+    }
+
     /**
      * {@inheritdoc}
      */

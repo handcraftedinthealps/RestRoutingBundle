@@ -1,0 +1,13 @@
+users:
+  type:     rest
+  resource: HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller\UsersController
+
+user_topics:
+  type:     rest
+  resource: HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller\UserTopicsController
+  parent:   users
+
+user_topic_comments:
+  type:     rest
+  resource: HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller\UserTopicCommentsController
+  parent:   user_topics

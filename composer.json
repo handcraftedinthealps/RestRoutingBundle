@@ -1,0 +1,55 @@
+{
+    "name": "handcraftedinthealps/rest-routing-bundle",
+    "type": "symfony-bundle",
+    "description": "This bundle provides automatic route registration for the Controllers",
+    "keywords": ["rest", "routing"],
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "HandcraftedInTheAlps\\RestRoutingBundle\\": ""
+        },
+        "files":[
+            "Controller/Annotations/NamePrefix.php",
+            "Controller/Annotations/NoRoute.php",
+            "Controller/Annotations/Prefix.php",
+            "Controller/Annotations/RouteResource.php",
+            "Controller/Annotations/Version.php",
+            "Routing/ClassResourceInterface.php"
+        ],
+        "exclude-from-classmap": [
+            "Resources/",
+            "Tests/"
+        ]
+    },
+    "require": {
+        "php": "^7.2",
+        "doctrine/inflector": "^1.0",
+        "symfony/config": "^4.4|^5.0",
+        "symfony/dependency-injection": "^4.4|^5.0",
+        "symfony/finder": "^4.4|^5.0",
+        "symfony/framework-bundle": "^4.4.1|^5.0",
+        "symfony/http-kernel": "^4.4|^5.0",
+        "symfony/routing": "^4.4|^5.0"
+    },
+    "require-dev": {
+        "friendsofsymfony/rest-bundle": "^2.8 || ^3.0",
+        "sensio/framework-extra-bundle": "^5.2.3",
+        "symfony/http-foundation": "^4.4|^5.0",
+        "symfony/phpunit-bridge": "^4.1.8|^5.0",
+        "symfony/validator": "^4.4|^5.0",
+        "symfony/serializer": "^4.4|^5.0",
+        "symfony/yaml": "^4.4|^5.0",
+        "symfony/security-core": "^3.4|^4.3|^5.0",
+        "psr/http-message": "^1.0",
+        "friendsofphp/php-cs-fixer": "^2.0"
+    },
+    "conflict": {
+        "friendsofsymfony/rest-bundle": "<2.8"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "minimum-stability": "dev"
+}

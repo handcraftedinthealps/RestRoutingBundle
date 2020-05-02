@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="handcraftedinthealps_rest_routing.loader.directory" class="HandcraftedInTheAlps\RestRoutingBundle\Routing\Loader\DirectoryRouteLoader" public="false">
+            <argument type="service" id="file_locator" />
+            <argument type="service" id="handcraftedinthealps_rest_routing.loader.processor" />
+            <tag name="routing.loader" />
+        </service>
+
+        <service id="handcraftedinthealps_rest_routing.loader.controller" class="HandcraftedInTheAlps\RestRoutingBundle\Routing\Loader\RestRouteLoader" public="false">
+            <argument type="service" id="service_container" />
+            <argument type="service" id="file_locator" />
+            <argument type="service" id="handcraftedinthealps_rest_routing.loader.reader.controller" />
+            <tag name="routing.loader" />
+        </service>
+
+        <service id="handcraftedinthealps_rest_routing.loader.processor" class="HandcraftedInTheAlps\RestRoutingBundle\Routing\Loader\RestRouteProcessor" public="false" />
+
+        <service id="handcraftedinthealps_rest_routing.loader.yaml_collection" class="HandcraftedInTheAlps\RestRoutingBundle\Routing\Loader\RestYamlCollectionLoader" public="false">
+            <argument type="service" id="file_locator" />
+            <argument type="service" id="handcraftedinthealps_rest_routing.loader.processor" />
+            <argument /> <!-- include format -->
+            <argument /> <!-- formats -->
+            <argument /> <!-- default format -->
+            <tag name="routing.loader" />
+        </service>
+
+        <service id="handcraftedinthealps_rest_routing.loader.xml_collection" class="HandcraftedInTheAlps\RestRoutingBundle\Routing\Loader\RestXmlCollectionLoader" public="false">
+            <argument type="service" id="file_locator" />
+            <argument type="service" id="handcraftedinthealps_rest_routing.loader.processor" />
+            <argument /> <!-- include format -->
+            <argument /> <!-- formats -->
+            <argument /> <!-- default format -->
+            <tag name="routing.loader" />
+        </service>
+
+        <service id="handcraftedinthealps_rest_routing.loader.reader.controller" class="HandcraftedInTheAlps\RestRoutingBundle\Routing\Loader\Reader\RestControllerReader" public="false">
+            <argument type="service" id="handcraftedinthealps_rest_routing.loader.reader.action" />
+            <argument type="service" id="handcraftedinthealps_rest_routing.annotation_reader" />
+        </service>
+
+        <service id="handcraftedinthealps_rest_routing.loader.reader.action" class="HandcraftedInTheAlps\RestRoutingBundle\Routing\Loader\Reader\RestActionReader" public="false">
+            <argument type="service" id="handcraftedinthealps_rest_routing.annotation_reader" />
+            <argument type="service" id="fos_rest.request.param_fetcher.reader" />
+            <argument type="service" id="handcraftedinthealps_rest_routing.inflector" />
+            <argument /> <!-- include format -->
+            <argument /> <!-- formats -->
+            <argument /> <!-- prefix_methods bool -->
+        </service>
+
+        <service id="handcraftedinthealps_rest_routing.inflector.doctrine" class="HandcraftedInTheAlps\RestRoutingBundle\Inflector\DoctrineInflector" public="false" />
+    </services>
+
+</container>

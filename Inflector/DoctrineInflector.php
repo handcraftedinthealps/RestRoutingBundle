@@ -12,7 +12,8 @@
 
 namespace HandcraftedInTheAlps\RestRoutingBundle\Inflector;
 
-use Doctrine\Common\Inflector\Inflector;
+use Doctrine\Inflector\Inflector;
+use Doctrine\Inflector\InflectorFactory;
 
 /**
  * Inflector object using the Doctrine/Inflector.
@@ -22,10 +23,20 @@ use Doctrine\Common\Inflector\Inflector;
 final class DoctrineInflector implements InflectorInterface
 {
     /**
+     * @var Inflector
+     */
+    private $inflector;
+
+    public function __construct()
+    {
+        $this->inflector = InflectorFactory::create()->build();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function pluralize(string $word): string
     {
-        return Inflector::pluralize($word);
+        return $this->inflector->pluralize($word);
     }
 }

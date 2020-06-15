@@ -11,7 +11,7 @@ You may specify a ``default_format`` that the routing loader will use for the
 
 .. code-block:: yaml
 
-    fos_rest:
+    handcraftedinthealps_rest_routing:
         routing_loader:
             default_format: json
             formats:
@@ -349,7 +349,7 @@ some configuration:
 
 .. code-block:: yaml
 
-    fos_rest:
+    handcraftedinthealps_rest_routing:
         routing_loader:
             include_format:       false
 
@@ -417,11 +417,11 @@ Define your service:
         acme.hellobundle.util.inflector:
           class: Acme\HelloBundle\Util\Inflector\NoopInflector
 
-Tell ``fos_rest`` to use your own service as inflector:
+Tell ``handcraftedinthealps_rest_routing`` to use your own service as inflector:
 
 .. code-block:: yaml
 
-    fos_rest:
+    handcraftedinthealps_rest_routing:
         service:
             inflector: acme.hellobundle.util.inflector
 

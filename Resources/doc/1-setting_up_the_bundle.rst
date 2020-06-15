@@ -9,7 +9,7 @@ enter your project directory and execute the following command to download the l
 
 .. code-block:: bash
 
-    $ composer require friendsofsymfony/rest-routing-bundle
+    $ composer require handcraftedinthealps/rest-routing-bundle
 
 This command requires you to have Composer installed globally, as explained
 in the `installation chapter`_ of the Composer documentation.

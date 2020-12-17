@@ -27,23 +27,23 @@ class RestXmlCollectionLoaderTest extends LoaderTest
 {
     /**
      * Test that route route not found.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Cannot find parent resource with name
      */
     public function testLoadThrowsExceptionWithInvalidRouteParent()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Cannot find parent resource with name');
+
         $this->loadFromXmlCollectionFixture('invalid_route_parent.xml');
     }
 
     /**
      * Test that invalid tag.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessageRegExp /This element is not expected. Expected is one of/
      */
     public function testLoadThrowsExceptionWithInvalidTag()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches('/This element is not expected. Expected is one of/');
+
         $this->loadFromXmlCollectionFixture('invalid_tag.xml');
     }
 
@@ -62,7 +62,7 @@ class RestXmlCollectionLoaderTest extends LoaderTest
             $this->assertNotNull($route, $name);
             $this->assertSame($params['path'], $route->getPath(), $name);
             $this->assertSame($params['methods'][0], $methods[0], $name);
-            $this->assertContains($params['controller'], $route->getDefault('_controller'), $name);
+            $this->assertStringContainsString($params['controller'], $route->getDefault('_controller'), $name);
         }
     }
 
@@ -81,7 +81,7 @@ class RestXmlCollectionLoaderTest extends LoaderTest
             $this->assertNotNull($route, $name);
             $this->assertSame($params['path'], $route->getPath(), $name);
             $this->assertSame($params['methods'][0], $methods[0], $name);
-            $this->assertContains($params['controller'], $route->getDefault('_controller'), $name);
+            $this->assertStringContainsString($params['controller'], $route->getDefault('_controller'), $name);
         }
     }
 

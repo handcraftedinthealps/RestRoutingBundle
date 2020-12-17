@@ -24,19 +24,14 @@ class ClassUtils
         $tokens = token_get_all(file_get_contents($file));
 
 
-        if (defined('T_NAME_QUALIFIED')) {
+        if (PHP_VERSION_ID > 70500 && defined('T_NAME_QUALIFIED')) {
             $namespaceToken = T_NAME_QUALIFIED;
         } else {
-            if (!defined('T_NAME_FULLY_QUALIFIED')) {
-                define('T_NAME_FULLY_QUALIFIED', T_STRING);
-                define('T_NAME_QUALIFIED', T_STRING);
-            }
             $namespaceToken = T_STRING;
         }
 
         for ($i = 0, $count = \count($tokens); $i < $count; ++$i) {
             $token = $tokens[$i];
-
             if (!\is_array($token)) {
                 continue;
             }
@@ -50,7 +45,7 @@ class ClassUtils
                 do {
                     $namespace .= $token[1];
                     $token = $tokens[++$i];
-                } while ($i < $count && \is_array($token) && \in_array($token[0], [T_NS_SEPARATOR, T_NAME_FULLY_QUALIFIED, T_NAME_QUALIFIED]));
+                } while ($i < $count && \is_array($token) && \in_array($token[0], [T_NS_SEPARATOR, $namespaceToken]));
             }
 
             if (T_CLASS === $token[0]) {

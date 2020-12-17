@@ -23,7 +23,7 @@ class ClassUtils
         $namespace = false;
         $tokens = token_get_all(file_get_contents($file));
 
-        if (PHP_VERSION_ID >= 80000) {
+        if (\PHP_VERSION_ID >= 80000) {
             $namespaceToken = T_NAME_QUALIFIED;
         } else {
             $namespaceToken = T_STRING;
@@ -44,7 +44,7 @@ class ClassUtils
                 do {
                     $namespace .= $token[1];
                     $token = $tokens[++$i];
-                } while ($i < $count && \is_array($token) && \in_array($token[0], [T_NS_SEPARATOR, $namespaceToken]));
+                } while ($i < $count && \is_array($token) && \in_array($token[0], [T_NS_SEPARATOR, $namespaceToken], true));
             }
 
             if (T_CLASS === $token[0]) {

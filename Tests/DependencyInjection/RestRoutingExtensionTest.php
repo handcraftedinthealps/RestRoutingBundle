@@ -47,7 +47,7 @@ class RestRoutingExtensionTest extends TestCase
      */
     private $defaultFormat;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->container = new ContainerBuilder();
         $this->container->setParameter('kernel.bundles', ['JMSSerializerBundle' => true]);
@@ -57,7 +57,7 @@ class RestRoutingExtensionTest extends TestCase
         $this->formats = ['json' => true, 'xml' => true];
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         unset($this->container, $this->extension);
     }

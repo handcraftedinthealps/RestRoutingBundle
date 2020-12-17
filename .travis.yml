@@ -30,9 +30,12 @@ matrix:
         # development dependencies
         - php: 7.4
           env: DEPENDENCIES='dev'
+        # development dependencies
+        - php: 8.0
+          env: COMPOSER_FLAGS="--prefer-stable"
     allow_failures:
         # development dependencies
-        - php: 7.4
+        - php: nightly
           env: DEPENDENCIES='dev'
 
 before_install:

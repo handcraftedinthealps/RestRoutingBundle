@@ -2,7 +2,7 @@
 
 [![GitHub license](https://img.shields.io/github/license/handcraftedinthealps/RestRoutingBundle.svg)](https://github.com/handcraftedinthealps/RestRoutingBundle/blob/master/LICENSE)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/handcraftedinthealps/RestRoutingBundle.svg)](https://github.com/handcraftedinthealps/RestRoutingBundle/releases)
-[![Travis build](https://img.shields.io/travis/handcraftedinthealps/RestRoutingBundle/master.svg?label=travis)](https://travis-ci.org/handcraftedinthealps/RestRoutingBundle/branches)
+[![Github Test workflow status](https://img.shields.io/github/workflow/status/handcraftedinthealps/RestRoutingBundle/Test%20application/master.svg?label=test-workflow)](https://github.com/handcraftedinthealps/RestRoutingBundle/actions)
 
 This bundle provides the automatic route generation for the FOSRestBundle 3.0.
 

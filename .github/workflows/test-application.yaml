@@ -1,0 +1,107 @@
+name: Test application
+
+on:
+    pull_request:
+    push:
+        branches:
+            - master
+            - '[0-9]+.[0-9]+'
+
+jobs:
+    php:
+        name: "Run tests with php ${{ matrix.php-version }}"
+        runs-on: ubuntu-latest
+
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    # lowest dependencies
+                    - php-version: '7.2'
+                      composer-flags: '--prefer-lowest --prefer-stable --prefer-dist'
+                      minimum-stability: 'stable'
+                      lint: false
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+
+                    # Symfony 4.4
+                    - php-version: '7.4'
+                      composer-flags: '--prefer-stable --prefer-dist'
+                      minimum-stability: 'dev'
+                      lint: false
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+                          SYMFONY_REQUIRE: "4.4.*"
+
+                    # Symfony 5.0
+                    - php-version: '7.4'
+                      composer-flags: '--prefer-stable --prefer-dist'
+                      minimum-stability: 'dev'
+                      lint: false
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+                          SYMFONY_REQUIRE: "5.0.*"
+
+                    # highest dependencies php 7.3
+                    - php-version: '7.3'
+                      composer-flags: '--prefer-stable --prefer-dist'
+                      minimum-stability: 'dev'
+                      lint: false
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+
+                    # highest dependencies php 7.4
+                    - php-version: '7.4'
+                      composer-flags: '--prefer-stable --prefer-dist'
+                      minimum-stability: 'dev'
+                      lint: true
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+
+                    # highest dependencies php 8.0
+                    - php-version: '8.0'
+                      composer-flags: '--prefer-stable --prefer-dist'
+                      minimum-stability: 'dev'
+                      lint: false
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+
+        steps:
+            - name: Checkout project
+              uses: actions/checkout@v2
+
+            - name: Install and configure PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php-version }}
+                  tools: 'composer'
+
+            - name: Get composer cache directory
+              id: composer-cache-dir
+              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            - name: Cache dependencies
+              uses: actions/cache@v2
+              id: composer-cache
+              with:
+                  path: ${{ steps.composer-cache-dir.outputs.dir }}
+                  key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-composer-
+
+            - name: Install dependencies
+              run: |
+                  composer validate --strict
+                  composer config minimum-stability ${{ matrix.minimum-stability }}
+                  composer update ${{ matrix.composer-flags }}
+                  ./phpunit install
+              env: ${{ matrix.env }}
+
+            - name: Fix code style
+              if: ${{ matrix.lint }}
+              run: vendor/bin/php-cs-fixer fix --verbose --diff --dry-run
+              env: ${{ matrix.env }}
+
+            - name: Run tests
+              run: ./phpunit
+              env: ${{ matrix.env }}

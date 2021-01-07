@@ -68,7 +68,7 @@ jobs:
                           SYMFONY_DEPRECATIONS_HELPER: disabled
 
                     # dev dependencies
-                    - php-version: 'nightly'
+                    - php-version: '8.1'
                       composer-flags: '--prefer-dist'
                       lint: false
                       experimental: true

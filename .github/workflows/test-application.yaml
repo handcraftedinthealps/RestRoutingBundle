@@ -105,6 +105,7 @@ jobs:
             - name: Install dependencies
               run: |
                   composer validate --strict
+                  composer config minimum-stability stable
                   composer update ${{ matrix.composer-flags }}
                   ./phpunit install
               env: ${{ matrix.env }}

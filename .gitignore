@@ -1,4 +1,5 @@
 .phpunit
+.phpunit.result.cache
 phpunit.xml
 vendor
 composer.lock

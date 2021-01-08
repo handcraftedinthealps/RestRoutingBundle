@@ -20,7 +20,6 @@ jobs:
                     # lowest dependencies
                     - php-version: '7.2'
                       composer-flags: '--prefer-lowest --prefer-stable --prefer-dist'
-                      minimum-stability: 'stable'
                       lint: false
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
@@ -28,7 +27,6 @@ jobs:
                     # Symfony 4.4
                     - php-version: '7.4'
                       composer-flags: '--prefer-stable --prefer-dist'
-                      minimum-stability: 'dev'
                       lint: false
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
@@ -37,7 +35,6 @@ jobs:
                     # Symfony 5.0
                     - php-version: '7.4'
                       composer-flags: '--prefer-stable --prefer-dist'
-                      minimum-stability: 'dev'
                       lint: false
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
@@ -46,7 +43,6 @@ jobs:
                     # highest dependencies php 7.3
                     - php-version: '7.3'
                       composer-flags: '--prefer-stable --prefer-dist'
-                      minimum-stability: 'dev'
                       lint: false
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
@@ -54,7 +50,6 @@ jobs:
                     # highest dependencies php 7.4
                     - php-version: '7.4'
                       composer-flags: '--prefer-stable --prefer-dist'
-                      minimum-stability: 'dev'
                       lint: true
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
@@ -62,7 +57,6 @@ jobs:
                     # highest dependencies php 8.0
                     - php-version: '8.0'
                       composer-flags: '--prefer-stable --prefer-dist'
-                      minimum-stability: 'dev'
                       lint: false
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
@@ -93,7 +87,6 @@ jobs:
             - name: Install dependencies
               run: |
                   composer validate --strict
-                  composer config minimum-stability ${{ matrix.minimum-stability }}
                   composer update ${{ matrix.composer-flags }}
                   ./phpunit install
               env: ${{ matrix.env }}

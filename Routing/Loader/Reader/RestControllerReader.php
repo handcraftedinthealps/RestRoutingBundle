@@ -90,7 +90,7 @@ class RestControllerReader
                 '/([A-Z][^A-Z]*)Controller/',
                 $reflectionClass->getShortName(),
                 -1,
-                PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE
+                \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE
             );
             if (empty($resource)) {
                 throw new \InvalidArgumentException("Controller '{$reflectionClass->name}' does not identify a resource");

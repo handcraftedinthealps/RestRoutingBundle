@@ -157,7 +157,7 @@ class RestYamlCollectionLoader extends YamlFileLoader
     public function supports($resource, $type = null): bool
     {
         return 'rest' === $type && \is_string($resource) &&
-            \in_array(pathinfo($resource, PATHINFO_EXTENSION), ['yaml', 'yml'], true);
+            \in_array(pathinfo($resource, \PATHINFO_EXTENSION), ['yaml', 'yml'], true);
     }
 
     public function addParentNamePrefix(RouteCollection $collection, ?string $namePrefix): RouteCollection

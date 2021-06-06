@@ -72,7 +72,7 @@ class RestRouteLoader extends Loader
         return \is_string($resource)
             && 'rest' === $type
             && !\in_array(
-                pathinfo($resource, PATHINFO_EXTENSION),
+                pathinfo($resource, \PATHINFO_EXTENSION),
                 ['xml', 'yml', 'yaml'], true
             );
     }

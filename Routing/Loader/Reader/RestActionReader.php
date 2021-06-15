@@ -420,6 +420,8 @@ class RestActionReader
             UserInterface::class,
         ];
 
+        $supportsUnion = \PHP_VERSION_ID > 80000 && class_exists('\ReflectionUnionType');
+
         $arguments = [];
         foreach ($method->getParameters() as $argument) {
             if (isset($params[$argument->getName()])) {
@@ -427,16 +429,24 @@ class RestActionReader
             }
 
             try {
-                $argumentClass = $argument->getClass();
+                $argumentClass = $argument->getType();
             } catch (\ReflectionException $e) {
                 $argumentClass = null;
             }
 
             if ($argumentClass) {
-                $className = $argumentClass->getName();
-                foreach ($ignoreClasses as $class) {
-                    if ($className === $class || is_subclass_of($className, $class)) {
-                        continue 2;
+                if ($supportsUnion && $argumentClass instanceof \ReflectionUnionType) {
+                    $types = $argumentClass->getTypes();
+                } else {
+                    $types = [$argumentClass];
+                }
+
+                foreach ($types as $type) {
+                    $className = $type->getName();
+                    foreach ($ignoreClasses as $class) {
+                        if ($className === $class || is_subclass_of($className, $class)) {
+                            continue 3;
+                        }
                     }
                 }
             }

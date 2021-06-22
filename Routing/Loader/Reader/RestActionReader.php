@@ -67,6 +67,15 @@ class RestActionReader
     ];
     private $availableConventionalActions = ['new', 'edit', 'remove'];
     private $hasMethodPrefix;
+    private $ignoredClasses = [
+        ConstraintViolationListInterface::class,
+        MessageInterface::class,
+        ParamConverter::class,
+        ParamFetcherInterface::class,
+        Request::class,
+        SessionInterface::class,
+        UserInterface::class,
+    ];
 
     public function __construct(Reader $annotationReader, ?ParamReaderInterface $paramReader, InflectorInterface $inflector, bool $includeFormat, array $formats = [], bool $hasMethodPrefix = true)
     {
@@ -76,6 +85,29 @@ class RestActionReader
         $this->includeFormat = $includeFormat;
         $this->formats = $formats;
         $this->hasMethodPrefix = $hasMethodPrefix;
+    }
+
+    /**
+     * Set ignored classes.
+     *
+     * These classes will be ignored for route construction when
+     * type hinted as method argument.
+     *
+     * @param string[] $ignoredClasses
+     */
+    public function setIgnoredClasses(array $ignoredClasses): void
+    {
+        $this->ignoredClasses = $ignoredClasses;
+    }
+
+    /**
+     * Get ignored classes.
+     *
+     * @return string[]
+     */
+    public function getIgnoredClasses(): array
+    {
+        return $this->ignoredClasses;
     }
 
     public function setRoutePrefix(?string $prefix = null): void
@@ -410,15 +442,7 @@ class RestActionReader
         }
 
         // ignore several type hinted arguments
-        $ignoreClasses = [
-            ConstraintViolationListInterface::class,
-            MessageInterface::class,
-            ParamConverter::class,
-            ParamFetcherInterface::class,
-            Request::class,
-            SessionInterface::class,
-            UserInterface::class,
-        ];
+        $ignoreClasses = $this->getIgnoredClasses();
 
         $supportsUnion = \PHP_VERSION_ID > 80000 && class_exists('\ReflectionUnionType');
 

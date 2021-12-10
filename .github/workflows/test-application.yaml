@@ -61,6 +61,13 @@ jobs:
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
 
+                    # highest dependencies php 8.1
+                    - php-version: '8.1'
+                      composer-flags: '--prefer-stable --prefer-dist'
+                      lint: false
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+
         steps:
             - name: Checkout project
               uses: actions/checkout@v2

@@ -97,8 +97,9 @@ class RestControllerReader
             }
         }
 
+        $prefix = $this->actionReader->getRoutePrefix();
         // trim '/' at the start of the prefix
-        if ('/' === substr($prefix = $this->actionReader->getRoutePrefix(), 0, 1)) {
+        if ($prefix && '/' === substr($prefix, 0, 1)) {
             $this->actionReader->setRoutePrefix(substr($prefix, 1));
         }
 

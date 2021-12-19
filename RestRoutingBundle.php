@@ -15,6 +15,7 @@ namespace HandcraftedInTheAlps\RestRoutingBundle;
 use HandcraftedInTheAlps\RestRoutingBundle\DependencyInjection\CompilerPass\FormatsCompilerPass;
 use HandcraftedInTheAlps\RestRoutingBundle\DependencyInjection\RestRoutingExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class RestRoutingBundle extends Bundle
@@ -27,7 +28,7 @@ class RestRoutingBundle extends Bundle
         $container->addCompilerPass(new FormatsCompilerPass());
     }
 
-    public function getContainerExtension()
+    public function getContainerExtension(): ?ExtensionInterface
     {
         if (null === $this->extension) {
             $this->extension = new RestRoutingExtension();

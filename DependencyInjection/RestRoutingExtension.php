@@ -22,7 +22,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  */
 class RestRoutingExtension extends Extension
 {
-    public function getAlias()
+    public function getAlias(): string
     {
         return 'handcraftedinthealps_rest_routing';
     }

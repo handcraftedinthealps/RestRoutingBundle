@@ -33,7 +33,7 @@
     },
     "require-dev": {
         "friendsofsymfony/rest-bundle": "^2.8 || ^3.0",
-        "sensio/framework-extra-bundle": "^5.2.3",
+        "sensio/framework-extra-bundle": "^5.2.3 || ^6.0",
         "symfony/http-foundation": "^4.4|^5.0|^6.0",
         "symfony/phpunit-bridge": "^5.2|^6.0",
         "symfony/validator": "^4.4|^5.0|^6.0",

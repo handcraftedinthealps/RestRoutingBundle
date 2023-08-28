@@ -17,7 +17,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class FormatsCompilerPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $formats = $container->getDefinition('handcraftedinthealps_rest_routing.loader.yaml_collection')->getArgument(3);
 

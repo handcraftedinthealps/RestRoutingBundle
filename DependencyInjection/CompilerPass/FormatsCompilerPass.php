@@ -15,9 +15,12 @@ namespace HandcraftedInTheAlps\RestRoutingBundle\DependencyInjection\CompilerPas
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/**
+ * @internal
+ */
 class FormatsCompilerPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $formats = $container->getDefinition('handcraftedinthealps_rest_routing.loader.yaml_collection')->getArgument(3);
 

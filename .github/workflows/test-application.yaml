@@ -46,6 +46,7 @@ jobs:
                       lint: false
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
+                          SYMFONY_REQUIRE: "^6.0"
 
                     # highest dependencies php 7.4
                     - php-version: '7.4'
@@ -53,6 +54,7 @@ jobs:
                       lint: true
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
+                          SYMFONY_REQUIRE: "^6.0"
 
                     # highest dependencies php 8.0
                     - php-version: '8.0'
@@ -60,6 +62,7 @@ jobs:
                       lint: false
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
+                          SYMFONY_REQUIRE: "^6.0"
 
                     # highest dependencies php 8.1
                     - php-version: '8.1'
@@ -67,6 +70,7 @@ jobs:
                       lint: false
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
+                          SYMFONY_REQUIRE: "^6.0"
 
                     # highest dependencies php 8.2
                     - php-version: '8.2'
@@ -74,6 +78,7 @@ jobs:
                       lint: false
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
+                          SYMFONY_REQUIRE: "^7.0"
 
                     # highest dependencies php 8.3
                     - php-version: '8.3'
@@ -81,6 +86,7 @@ jobs:
                       lint: false
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
+                          SYMFONY_REQUIRE: "^7.0"
 
         steps:
             - name: Checkout project
@@ -110,6 +116,12 @@ jobs:
                   composer validate --strict
                   composer update ${{ matrix.composer-flags }}
                   ./phpunit install
+              env: ${{ matrix.env }}
+
+            - name: Install dependencies
+              if: ${{ matrix.env.SYMFONY_REQUIRE == '^7.0' }}
+              run: |
+                  composer remove sensio/framework-extra-bundle --dev
               env: ${{ matrix.env }}
 
             - name: Fix code style

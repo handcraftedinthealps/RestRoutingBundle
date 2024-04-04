@@ -118,10 +118,10 @@ jobs:
                   ./phpunit install
               env: ${{ matrix.env }}
 
-            - name: Install dependencies
+            - name: Remove sensio/framework-extra-bundle dependency
               if: ${{ matrix.env.SYMFONY_REQUIRE == '^7.0' }}
               run: |
-                  composer remove sensio/framework-extra-bundle --dev
+                  composer remove sensio/framework-extra-bundle --dev --no-update
               env: ${{ matrix.env }}
 
             - name: Fix code style

@@ -15,6 +15,7 @@ namespace HandcraftedInTheAlps\RestRoutingBundle\Tests\Routing\Loader;
 use HandcraftedInTheAlps\RestRoutingBundle\Routing\RestRouteCollection;
 use HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller\AnnotatedPrefixedController;
 use HandcraftedInTheAlps\RestRoutingBundle\Tests\Fixtures\Controller\UsersController;
+use Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle;
 
 /**
  * RestRouteLoader test.
@@ -425,6 +426,10 @@ class RestRouteLoaderTest extends LoaderTest
      */
     public function testParamConverterIsIgnoredInRouteGenerationCorrectly()
     {
+        if (!class_exists(SensioFrameworkExtraBundle::class)) {
+            $this->markTestSkipped('SensioFrameworkExtraBundle is not available');
+        }
+
         $collection = $this->loadFromControllerFixture('ParamConverterController');
 
         $this->assertNotNull($collection->get('post_something'), 'route for "post_something" does not exist');

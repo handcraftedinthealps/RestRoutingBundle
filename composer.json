@@ -23,6 +23,7 @@
     },
     "require": {
         "php": "^7.2 || ^8.0",
+        "doctrine/annotations": "^1.0|^2.0",
         "doctrine/inflector": "^1.4.1|^2.0",
         "symfony/config": "^4.4|^5.0|^6.0|^7.0",
         "symfony/dependency-injection": "^4.4|^5.0|^6.0|^7.0",

@@ -111,7 +111,7 @@ jobs:
             - name: Add sensio/framework-extra-bundle dependency
               if: ${{ matrix.env.SYMFONY_REQUIRE != '^7.0' }}
               run: |
-                  composer require sensio/framework-extra-bundle --dev --no-update
+                  composer require sensio/framework-extra-bundle:"^5.2.3 || ^6.0" --dev --no-update
               env: ${{ matrix.env }}
 
             - name: Install dependencies

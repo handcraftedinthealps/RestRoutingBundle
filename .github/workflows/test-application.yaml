@@ -20,14 +20,12 @@ jobs:
                     # lowest dependencies
                     - php-version: '7.2'
                       composer-flags: '--prefer-lowest --prefer-stable --prefer-dist'
-                      lint: false
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
 
                     # Symfony 4.4
                     - php-version: '7.4'
                       composer-flags: '--prefer-stable --prefer-dist'
-                      lint: false
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           SYMFONY_REQUIRE: "4.4.*"
@@ -35,7 +33,6 @@ jobs:
                     # Symfony 5.0
                     - php-version: '7.4'
                       composer-flags: '--prefer-stable --prefer-dist'
-                      lint: false
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           SYMFONY_REQUIRE: "5.0.*"
@@ -51,7 +48,6 @@ jobs:
                     # highest dependencies php 7.4
                     - php-version: '7.4'
                       composer-flags: '--prefer-stable --prefer-dist'
-                      lint: true
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           SYMFONY_REQUIRE: "^6.0"
@@ -59,7 +55,6 @@ jobs:
                     # highest dependencies php 8.0
                     - php-version: '8.0'
                       composer-flags: '--prefer-stable --prefer-dist'
-                      lint: false
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           SYMFONY_REQUIRE: "^6.0"
@@ -67,7 +62,6 @@ jobs:
                     # highest dependencies php 8.1
                     - php-version: '8.1'
                       composer-flags: '--prefer-stable --prefer-dist'
-                      lint: false
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           SYMFONY_REQUIRE: "^6.0"
@@ -75,7 +69,6 @@ jobs:
                     # highest dependencies php 8.2
                     - php-version: '8.2'
                       composer-flags: '--prefer-stable --prefer-dist'
-                      lint: false
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           SYMFONY_REQUIRE: "^7.0"
@@ -83,7 +76,6 @@ jobs:
                     # highest dependencies php 8.3
                     - php-version: '8.3'
                       composer-flags: '--prefer-stable --prefer-dist'
-                      lint: false
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
                           SYMFONY_REQUIRE: "^7.0"
@@ -111,6 +103,11 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-composer-
 
+            - name: Remove tooling
+              run: |
+                  composer remove php-cs-fixer/shim --dev --no-update
+              env: ${{ matrix.env }}
+
             - name: Remove sensio/framework-extra-bundle dependency
               if: ${{ matrix.env.SYMFONY_REQUIRE == '^7.0' }}
               run: |
@@ -119,16 +116,46 @@ jobs:
 
             - name: Install dependencies
               run: |
-                  composer validate --strict
                   composer update ${{ matrix.composer-flags }}
                   ./phpunit install
-              env: ${{ matrix.env }}
-
-            - name: Fix code style
-              if: ${{ matrix.lint }}
-              run: vendor/bin/php-cs-fixer fix --verbose --diff --dry-run
               env: ${{ matrix.env }}
 
             - name: Run tests
               run: ./phpunit
               env: ${{ matrix.env }}
+
+    lint:
+        name: "Lint"
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout project
+              uses: actions/checkout@v2
+
+            - name: Install and configure PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 7.4
+                  tools: 'composer'
+
+            - name: Get composer cache directory
+              id: composer-cache-dir
+              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            - name: Cache dependencies
+              uses: actions/cache@v2
+              id: composer-cache
+              with:
+                  path: ${{ steps.composer-cache-dir.outputs.dir }}
+                  key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-composer-
+
+            - name: Install dependencies
+              run: |
+                  composer update --prefer-stable --prefer-dist
+              env:
+                  SYMFONY_REQUIRE: "^6.0"
+
+            - name: Lint
+              run: composer lint

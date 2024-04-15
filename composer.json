@@ -33,7 +33,6 @@
     },
     "require-dev": {
         "friendsofsymfony/rest-bundle": "^2.8 || ^3.0",
-        "sensio/framework-extra-bundle": "^5.2.3 || ^6.0",
         "symfony/http-foundation": "^4.4|^5.0|^6.0|^7.0",
         "symfony/phpunit-bridge": "^5.4.33|^6.3.10|^7.0.1",
         "symfony/validator": "^4.4|^5.0|^6.0|^7.0",
@@ -41,10 +40,18 @@
         "symfony/yaml": "^4.4|^5.0|^6.0|^7.0",
         "symfony/security-core": "^3.4|^4.3|^5.0|^6.0|^7.0",
         "psr/http-message": "^1.0",
-        "friendsofphp/php-cs-fixer": "^2.0"
+        "php-cs-fixer/shim": "^3.6"
     },
     "conflict": {
         "friendsofsymfony/rest-bundle": "<2.8"
+    },
+    "scripts": {
+        "lint-composer": "composer validate --strict",
+        "php-cs": "@php vendor/bin/php-cs-fixer fix --verbose --diff --dry-run",
+        "lint": [
+            "@php-cs",
+            "@lint-composer"
+        ]
     },
     "extra": {
         "branch-alias": {

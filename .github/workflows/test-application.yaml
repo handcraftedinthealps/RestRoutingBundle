@@ -108,10 +108,10 @@ jobs:
                   composer remove php-cs-fixer/shim --dev --no-update
               env: ${{ matrix.env }}
 
-            - name: Remove sensio/framework-extra-bundle dependency
-              if: ${{ matrix.env.SYMFONY_REQUIRE == '^7.0' }}
+            - name: Add sensio/framework-extra-bundle dependency
+              if: ${{ matrix.env.SYMFONY_REQUIRE != '^7.0' }}
               run: |
-                  composer remove sensio/framework-extra-bundle --dev --no-update
+                  composer require sensio/framework-extra-bundle --dev --no-update
               env: ${{ matrix.env }}
 
             - name: Install dependencies

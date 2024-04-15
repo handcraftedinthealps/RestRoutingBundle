@@ -111,17 +111,17 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-composer-
 
+            - name: Remove sensio/framework-extra-bundle dependency
+              if: ${{ matrix.env.SYMFONY_REQUIRE == '^7.0' }}
+              run: |
+                  composer remove sensio/framework-extra-bundle --dev --no-update
+              env: ${{ matrix.env }}
+
             - name: Install dependencies
               run: |
                   composer validate --strict
                   composer update ${{ matrix.composer-flags }}
                   ./phpunit install
-              env: ${{ matrix.env }}
-
-            - name: Remove sensio/framework-extra-bundle dependency
-              if: ${{ matrix.env.SYMFONY_REQUIRE == '^7.0' }}
-              run: |
-                  composer remove sensio/framework-extra-bundle --dev --no-update
               env: ${{ matrix.env }}
 
             - name: Fix code style

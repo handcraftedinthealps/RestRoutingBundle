@@ -22,6 +22,6 @@ $loader = require $file;
 if (method_exists(AnnotationRegistry::class, 'registerLoader')) {
     AnnotationRegistry::registerLoader([$loader, 'loadClass']);
 }
-if (method_exists(AnnotationRegistry::class, 'addGlobalIgnoredName')) {
+if (method_exists(AnnotationReader::class, 'addGlobalIgnoredName')) {
     AnnotationReader::addGlobalIgnoredName('required');
 }

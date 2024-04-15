@@ -12,9 +12,8 @@
 
 namespace HandcraftedInTheAlps\RestRoutingBundle\Tests\DependencyInjection;
 
-use HandcraftedInTheAlps\RestRoutingBundle\DependencyInjection\CompilerPass\AnnotationReaderPass;
-use HandcraftedInTheAlps\RestRoutingBundle\DependencyInjection\CompilerPass\FormatsCompilerPass;
 use HandcraftedInTheAlps\RestRoutingBundle\DependencyInjection\RestRoutingExtension;
+use HandcraftedInTheAlps\RestRoutingBundle\RestRoutingBundle;
 use HandcraftedInTheAlps\RestRoutingBundle\Tests\Application\Kernel;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\DependencyInjection\FrameworkExtension;
@@ -219,10 +218,14 @@ class RestRoutingExtensionTest extends TestCase
             );
         }
 
-        $formatsCompilerPass = new FormatsCompilerPass();
-        $formatsCompilerPass->process($this->container);
+        $bundle = new RestRoutingBundle();
+        $bundle->build($this->container);
+        $compilerPasses = $this->container->getCompilerPassConfig()->getPasses();
 
-        $annotationReaderCompilerPass = new AnnotationReaderPass();
-        $annotationReaderCompilerPass->process($this->container);
+        foreach ($compilerPasses as $pass) {
+            if (0 === strpos(\get_class($pass), 'HandcraftedInTheAlps\RestRoutingBundle\DependencyInjection\CompilerPass')) {
+                $pass->process($this->container);
+            }
+        }
     }
 }

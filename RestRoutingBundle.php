@@ -12,6 +12,7 @@
 
 namespace HandcraftedInTheAlps\RestRoutingBundle;
 
+use HandcraftedInTheAlps\RestRoutingBundle\DependencyInjection\CompilerPass\AnnotationReaderPass;
 use HandcraftedInTheAlps\RestRoutingBundle\DependencyInjection\CompilerPass\FormatsCompilerPass;
 use HandcraftedInTheAlps\RestRoutingBundle\DependencyInjection\RestRoutingExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

@@ -5,4 +5,5 @@ vendor
 composer.lock
 composer.phar
 .php_cs.cache
+.php-cs-fixer.cache
 .php_cs

@@ -207,7 +207,7 @@ class RestRoutingExtensionTest extends TestCase
         );
 
         if ($frameworkBundle) {
-            $this->container->setParameter('kernel.project_dir', dirname(__DIR__) . '/Application');
+            $this->container->setParameter('kernel.project_dir', \dirname(__DIR__) . '/Application');
             $this->container->setParameter('kernel.container_class', 'ApplicationContainer');
             $this->container->set('kernel', new Kernel('test', false));
             $extension = new FrameworkExtension();

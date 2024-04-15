@@ -49,6 +49,7 @@
     "scripts": {
         "lint-composer": "composer validate --strict",
         "php-cs": "@php vendor/bin/php-cs-fixer fix --verbose --diff --dry-run",
+        "php-cs-fix": "@php vendor/bin/php-cs-fixer fix",
         "lint": [
             "@php-cs",
             "@lint-composer"

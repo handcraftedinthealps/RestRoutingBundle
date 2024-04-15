@@ -22,6 +22,7 @@ jobs:
                       composer-flags: '--prefer-lowest --prefer-stable --prefer-dist'
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
+                          SYMFONY_PHPUNIT_VERSION: 8.5
 
                     # Symfony 4.4
                     - php-version: '7.4'

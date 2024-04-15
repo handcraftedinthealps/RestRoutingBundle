@@ -45,7 +45,7 @@
 
         <service id="handcraftedinthealps_rest_routing.loader.reader.action" class="HandcraftedInTheAlps\RestRoutingBundle\Routing\Loader\Reader\RestActionReader" public="false">
             <argument type="service" id="handcraftedinthealps_rest_routing.annotation_reader" />
-            <argument type="service" id="fos_rest.request.param_fetcher.reader" />
+            <argument type="service" id="fos_rest.request.param_fetcher.reader" on-invalid="null" />
             <argument type="service" id="handcraftedinthealps_rest_routing.inflector" />
             <argument /> <!-- include format -->
             <argument /> <!-- formats -->

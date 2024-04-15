@@ -12,6 +12,7 @@
 
 namespace HandcraftedInTheAlps\RestRoutingBundle\Tests\DependencyInjection;
 
+use HandcraftedInTheAlps\RestRoutingBundle\DependencyInjection\CompilerPass\AnnotationReaderPass;
 use HandcraftedInTheAlps\RestRoutingBundle\DependencyInjection\CompilerPass\FormatsCompilerPass;
 use HandcraftedInTheAlps\RestRoutingBundle\DependencyInjection\RestRoutingExtension;
 use HandcraftedInTheAlps\RestRoutingBundle\Tests\Application\Kernel;
@@ -218,5 +219,8 @@ class RestRoutingExtensionTest extends TestCase
 
         $formatsCompilerPass = new FormatsCompilerPass();
         $formatsCompilerPass->process($this->container);
+
+        $annotationReaderCompilerPass = new AnnotationReaderPass();
+        $annotationReaderCompilerPass->process($this->container);
     }
 }

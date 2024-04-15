@@ -26,6 +26,7 @@ class RestRoutingBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
         $container->addCompilerPass(new FormatsCompilerPass());
+        $container->addCompilerPass(new AnnotationReaderPass());
     }
 
     public function getContainerExtension(): ?ExtensionInterface

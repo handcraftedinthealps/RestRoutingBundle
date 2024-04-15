@@ -18,5 +18,9 @@ if (!file_exists($file = __DIR__ . '/../vendor/autoload.php')) {
 }
 
 $loader = require $file;
-AnnotationRegistry::registerLoader([$loader, 'loadClass']);
+
+if (method_exists(AnnotationRegistry::class, 'registerLoader')) {
+    AnnotationRegistry::registerLoader([$loader, 'loadClass']);
+}
+
 AnnotationReader::addGlobalIgnoredName('required');

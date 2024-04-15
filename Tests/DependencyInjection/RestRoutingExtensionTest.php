@@ -14,7 +14,9 @@ namespace HandcraftedInTheAlps\RestRoutingBundle\Tests\DependencyInjection;
 
 use HandcraftedInTheAlps\RestRoutingBundle\DependencyInjection\CompilerPass\FormatsCompilerPass;
 use HandcraftedInTheAlps\RestRoutingBundle\DependencyInjection\RestRoutingExtension;
+use HandcraftedInTheAlps\RestRoutingBundle\Tests\Application\Kernel;
 use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\DependencyInjection\FrameworkExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -60,6 +62,21 @@ class RestRoutingExtensionTest extends TestCase
     protected function tearDown(): void
     {
         unset($this->container, $this->extension);
+    }
+
+    public function testDefault()
+    {
+        $this->load([
+            'handcraftedinthealps_rest_routing' => [],
+        ], true);
+
+        $this->assertNotNull($this->container->get('handcraftedinthealps_rest_routing.loader.directory'));
+        $this->assertNotNull($this->container->get('handcraftedinthealps_rest_routing.loader.controller'));
+        $this->assertNotNull($this->container->get('handcraftedinthealps_rest_routing.loader.processor'));
+        $this->assertNotNull($this->container->get('handcraftedinthealps_rest_routing.loader.yaml_collection'));
+        $this->assertNotNull($this->container->get('handcraftedinthealps_rest_routing.loader.xml_collection'));
+        $this->assertNotNull($this->container->get('handcraftedinthealps_rest_routing.loader.reader.controller'));
+        $this->assertNotNull($this->container->get('handcraftedinthealps_rest_routing.loader.reader.action'));
     }
 
     public function testIncludeFormatDisabled()
@@ -180,13 +197,24 @@ class RestRoutingExtensionTest extends TestCase
         $this->assertArrayHasKey('routing.loader', $loader->getTags());
     }
 
-    private function load(array $config): void
+    private function load(array $config, bool $frameworkBundle = false): void
     {
         $extension = new RestRoutingExtension();
         $extension->load(
             $config,
             $this->container
         );
+
+        if ($frameworkBundle) {
+            $this->container->setParameter('kernel.project_dir', dirname(__DIR__) . '/Application');
+            $this->container->setParameter('kernel.container_class', 'ApplicationContainer');
+            $this->container->set('kernel', new Kernel('test', false));
+            $extension = new FrameworkExtension();
+            $extension->load(
+                [],
+                $this->container
+            );
+        }
 
         $formatsCompilerPass = new FormatsCompilerPass();
         $formatsCompilerPass->process($this->container);

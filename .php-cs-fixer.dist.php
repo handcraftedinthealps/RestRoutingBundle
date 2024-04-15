@@ -10,8 +10,9 @@ For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code.
 EOF;
 
-return PhpCsFixer\Config::create()
-    ->setRules(array(
+return (new PhpCsFixer\Config())
+    ->setRiskyAllowed(true)
+    ->setRules([
         '@Symfony' => true,
         '@Symfony:risky' => true,
         'ordered_imports' => true,
@@ -19,7 +20,7 @@ return PhpCsFixer\Config::create()
         'array_syntax' => ['syntax' => 'short'],
         'phpdoc_align' => false,
         'class_definition' => [
-            'multiLineExtendsEachSingleLine' => true,
+            'multi_line_extends_each_single_line' => true,
         ],
         'linebreak_after_opening_tag' => true,
         'declare_strict_types' => false,
@@ -34,7 +35,14 @@ return PhpCsFixer\Config::create()
         'semicolon_after_instruction' => true,
         'strict_comparison' => true,
         'strict_param' => true,
-    ))
+        'modernize_strpos' => false,
+        'nullable_type_declaration_for_default_null_value' => false,
+        'operator_linebreak' => false,
+        'visibility_required' => false,
+        'get_class_to_class_keyword' => false,
+        'phpdoc_separation' => false,
+        'fully_qualified_strict_types' => false,
+    ])
     ->setRiskyAllowed(true)
     ->setFinder(
         PhpCsFixer\Finder::create()

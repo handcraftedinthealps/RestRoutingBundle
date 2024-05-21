@@ -64,7 +64,7 @@ class RestControllerReader
             return $attributes[0]->newInstance();
         }
 
-        return $this->annotationReader->getClassAnnotation($reflectionClass, Prefix::class);
+        return $this->annotationReader->getClassAnnotation($reflectionClass, $annotationName);
     }
 
     public function read(\ReflectionClass $reflectionClass): RestRouteCollection

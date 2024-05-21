@@ -668,10 +668,10 @@ class RestActionReader
 
         if (\PHP_VERSION_ID > 80000) {
             /** @var \ReflectionAttribute[] $reflectionAttributes */
-            $reflectionAttributes = [
-                ...(class_exists($annotationClass) ? $reflectionMethod->getAttributes($annotationClass, \ReflectionAttribute::IS_INSTANCEOF) : []),
-                ...(class_exists($oldAnnotationClass) ? $reflectionMethod->getAttributes($oldAnnotationClass, \ReflectionAttribute::IS_INSTANCEOF) : []),
-            ];
+            $reflectionAttributes = array_merge(
+                class_exists($annotationClass) ? $reflectionMethod->getAttributes($annotationClass, \ReflectionAttribute::IS_INSTANCEOF) : [],
+                class_exists($oldAnnotationClass) ? $reflectionMethod->getAttributes($oldAnnotationClass, \ReflectionAttribute::IS_INSTANCEOF) : []
+            );
 
             foreach ($reflectionAttributes as $reflectionAttribute) {
                 $annotations[] = $reflectionAttribute->newInstance();

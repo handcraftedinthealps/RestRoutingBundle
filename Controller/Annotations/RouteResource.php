@@ -20,6 +20,7 @@ use FOS\RestBundle\Controller\Annotations\RouteResource as OldRouteResource;
  * @Annotation
  * @Target("CLASS")
  */
+#[\Attribute(\Attribute::IS_REPEATABLE | \Attribute::TARGET_CLASS)]
 class RouteResource
 {
     /**

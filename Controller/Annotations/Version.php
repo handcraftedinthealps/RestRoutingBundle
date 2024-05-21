@@ -21,6 +21,7 @@ use FOS\RestBundle\Controller\Annotations\Version as OldVersion;
  * @Annotation
  * @Target("CLASS")
  */
+#[\Attribute(\Attribute::IS_REPEATABLE | \Attribute::TARGET_CLASS)]
 class Version extends Annotation
 {
 }

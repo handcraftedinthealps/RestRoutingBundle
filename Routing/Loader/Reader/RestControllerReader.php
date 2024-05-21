@@ -49,38 +49,56 @@ class RestControllerReader
         return $this->actionReader;
     }
 
+    /**
+     * @param \ReflectionClass $reflectionClass the ReflectionClass of the class from which
+     *           the class annotations should be read
+     * @param class-string<T> $annotationName the name of the annotation
+     *
+     * @return T|null the Annotation or NULL, if the requested annotation does not exist
+     *
+     * @template T
+     */
+    private function readClassAnnotation(\ReflectionClass $reflectionClass, string $annotationName): ?object
+    {
+        if (\PHP_VERSION_ID > 80000 && $attributes = $reflectionClass->getAttributes($annotationName, \ReflectionAttribute::IS_INSTANCEOF)) {
+            return $attributes[0]->newInstance();
+        }
+
+        return $this->annotationReader->getClassAnnotation($reflectionClass, Prefix::class);
+    }
+
     public function read(\ReflectionClass $reflectionClass): RestRouteCollection
     {
         $collection = new RestRouteCollection();
         $collection->addResource(new FileResource($reflectionClass->getFileName()));
 
         // read prefix annotation
-        if ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, Prefix::class)) {
+        if ($annotation = $this->readClassAnnotation($reflectionClass, Prefix::class)) {
             $this->actionReader->setRoutePrefix($annotation->value);
-        } elseif ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, OldPrefix::class)) {
+        } elseif ($annotation = $this->readClassAnnotation($reflectionClass, OldPrefix::class)) {
             $this->actionReader->setRoutePrefix($annotation->value);
         }
 
         // read name-prefix annotation
-        if ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, NamePrefix::class)) {
+        if ($annotation = $this->readClassAnnotation($reflectionClass, NamePrefix::class)) {
             $this->actionReader->setNamePrefix($annotation->value);
-        } elseif ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, OldNamePrefix::class)) {
+        } elseif ($annotation = $this->readClassAnnotation($reflectionClass, OldNamePrefix::class)) {
             $this->actionReader->setNamePrefix($annotation->value);
         }
 
         // read version annotation
-        if ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, Version::class)) {
+        if ($annotation = $this->readClassAnnotation($reflectionClass, Version::class)) {
             $this->actionReader->setVersions($annotation->value);
-        } elseif ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, OldVersion::class)) {
+        } elseif ($annotation = $this->readClassAnnotation($reflectionClass, OldVersion::class)) {
             $this->actionReader->setVersions($annotation->value);
         }
 
         $resource = [];
         // read route-resource annotation
-        if ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, RouteResource::class)) {
+        if ($annotation = $this->readClassAnnotation($reflectionClass, RouteResource::class)) {
             $resource = explode('_', $annotation->resource);
             $this->actionReader->setPluralize($annotation->pluralize);
-        } elseif ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, OldRouteResource::class)) {
+        } elseif ($annotation = $this->readClassAnnotation($reflectionClass, OldRouteResource::class)) {
             $resource = explode('_', $annotation->resource);
             $this->actionReader->setPluralize($annotation->pluralize);
         } elseif ($reflectionClass->implementsInterface(ClassResourceInterface::class)

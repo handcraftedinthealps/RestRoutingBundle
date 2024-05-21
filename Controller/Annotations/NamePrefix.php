@@ -21,6 +21,7 @@ use FOS\RestBundle\Controller\Annotations\NamePrefix as OldNamePrefix;
  * @Annotation
  * @Target("CLASS")
  */
+#[\Attribute(\Attribute::IS_REPEATABLE | \Attribute::TARGET_CLASS)]
 class NamePrefix extends Annotation
 {
 }

@@ -433,12 +433,22 @@ class RestActionReader
         // check if a parameter is coming from the request body
         $ignoreParameters = [];
         if (class_exists(ParamConverter::class)) {
-            $ignoreParameters = array_map(function ($annotation) {
-                return
-                    $annotation instanceof ParamConverter &&
-                    'fos_rest.request_body' === $annotation->getConverter()
-                        ? $annotation->getName() : null;
-            }, $this->annotationReader->getMethodAnnotations($method));
+            $ignoreParameters = array_merge(
+                array_map(function ($annotation) {
+                    return
+                        $annotation instanceof ParamConverter &&
+                        'fos_rest.request_body' === $annotation->getConverter()
+                            ? $annotation->getName() : null;
+                }, $this->annotationReader->getMethodAnnotations($method)),
+                \PHP_VERSION_ID > 80000 ? array_map(function (ParamConverter $reflectionAttribute) {
+                    $attribute = $reflectionAttribute->newInstance();
+
+                    return
+                        $attribute instanceof ParamConverter &&
+                        'fos_rest.request_body' === $attribute->getConverter()
+                            ? $attribute->getName() : null;
+                }, $method->getAttributes(ParamConverter::class)) : [],
+            );
         }
 
         // ignore several type hinted arguments
@@ -586,15 +596,26 @@ class RestActionReader
     private function readClassAnnotation(\ReflectionClass $reflectionClass, string $annotationName): ?RouteAnnotation
     {
         $annotationClass = "HandcraftedInTheAlps\\RestRoutingBundle\\Controller\\Annotations\\$annotationName";
-
-        if ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, $annotationClass)) {
-            return $annotation;
-        }
-
         $oldAnnotationClass = "FOS\\RestBundle\\Controller\\Annotations\\$annotationName";
 
-        if ($oldAnnotation = $this->annotationReader->getClassAnnotation($reflectionClass, $oldAnnotationClass)) {
-            return $oldAnnotation;
+        if (class_exists($annotationClass)) {
+            if (\PHP_VERSION_ID > 80000 && $attribute = $reflectionClass->getAttributes($annotationClass, \ReflectionAttribute::IS_INSTANCEOF)) {
+                return $attribute[0]->newInstance();
+            }
+
+            if ($annotation = $this->annotationReader->getClassAnnotation($reflectionClass, $annotationClass)) {
+                return $annotation;
+            }
+        }
+
+        if (class_exists($oldAnnotationClass)) {
+            if (\PHP_VERSION_ID > 80000 && $oldAttribute = $reflectionClass->getAttributes($oldAnnotationClass, \ReflectionAttribute::IS_INSTANCEOF)) {
+                return $oldAttribute[0]->newInstance();
+            }
+
+            if ($oldAnnotation = $this->annotationReader->getClassAnnotation($reflectionClass, $oldAnnotationClass)) {
+                return $oldAnnotation;
+            }
         }
 
         return null;
@@ -606,15 +627,23 @@ class RestActionReader
         $oldAnnotationClass = "FOS\\RestBundle\\Controller\\Annotations\\$annotationName";
 
         if (class_exists($annotationClass)) {
+            if (\PHP_VERSION_ID > 80000 && $attribute = $reflectionMethod->getAttributes($annotationClass, \ReflectionAttribute::IS_INSTANCEOF)) {
+                return $attribute[0]->newInstance();
+            }
+
             if ($annotation = $this->annotationReader->getMethodAnnotation($reflectionMethod, $annotationClass)) {
                 return $annotation;
             }
         }
 
-        if (class_exists($oldAnnotationClass)
-            && $oldAnnotation = $this->annotationReader->getMethodAnnotation($reflectionMethod, $oldAnnotationClass)
-        ) {
-            return $oldAnnotation;
+        if (class_exists($oldAnnotationClass)) {
+            if (\PHP_VERSION_ID > 80000 && $oldAttribute = $reflectionMethod->getAttributes($oldAnnotationClass, \ReflectionAttribute::IS_INSTANCEOF)) {
+                return $oldAttribute[0]->newInstance();
+            }
+
+            if ($oldAnnotation = $this->annotationReader->getMethodAnnotation($reflectionMethod, $oldAnnotationClass)) {
+                return $oldAnnotation;
+            }
         }
 
         return null;
@@ -634,6 +663,18 @@ class RestActionReader
                 if ($annotation instanceof $annotationClass || $annotation instanceof $oldAnnotationClass) {
                     $annotations[] = $annotation;
                 }
+            }
+        }
+
+        if (\PHP_VERSION_ID > 80000) {
+            /** @var \ReflectionAttribute[] $reflectionAttributes */
+            $reflectionAttributes = [
+                ...(class_exists($annotationClass) ? $reflectionMethod->getAttributes($annotationClass, \ReflectionAttribute::IS_INSTANCEOF) : []),
+                ...(class_exists($oldAnnotationClass) ? $reflectionMethod->getAttributes($oldAnnotationClass, \ReflectionAttribute::IS_INSTANCEOF) : []),
+            ];
+
+            foreach ($reflectionAttributes as $reflectionAttribute) {
+                $annotations[] = $reflectionAttribute->newInstance();
             }
         }
 

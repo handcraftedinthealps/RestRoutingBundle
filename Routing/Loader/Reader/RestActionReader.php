@@ -447,7 +447,7 @@ class RestActionReader
                         $attribute instanceof ParamConverter &&
                         'fos_rest.request_body' === $attribute->getConverter()
                             ? $attribute->getName() : null;
-                }, $method->getAttributes(ParamConverter::class)) : [],
+                }, $method->getAttributes(ParamConverter::class)) : []
             );
         }
 

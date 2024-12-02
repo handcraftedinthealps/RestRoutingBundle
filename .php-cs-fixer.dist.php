@@ -42,6 +42,9 @@ return (new PhpCsFixer\Config())
         'get_class_to_class_keyword' => false,
         'phpdoc_separation' => false,
         'fully_qualified_strict_types' => false,
+        'nullable_type_declaration_for_default_null_value' => true,
+        'native_function_invocation' => false,
+        'trailing_comma_in_multiline' => false,
     ])
     ->setRiskyAllowed(true)
     ->setFinder(

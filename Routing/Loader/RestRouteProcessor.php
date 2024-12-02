@@ -30,10 +30,10 @@ class RestRouteProcessor
         LoaderInterface $loader,
         $resource,
         array $parents = [],
-        string $routePrefix = null,
-        string $namePrefix = null,
-        string $type = null,
-        string $currentDir = null
+        ?string $routePrefix = null,
+        ?string $namePrefix = null,
+        ?string $type = null,
+        ?string $currentDir = null
     ): RouteCollection {
         $loader = $loader->resolve($resource, $type);
 

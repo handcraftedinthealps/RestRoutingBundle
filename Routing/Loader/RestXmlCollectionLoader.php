@@ -41,7 +41,7 @@ class RestXmlCollectionLoader extends XmlFileLoader
         RestRouteProcessor $processor,
         bool $includeFormat = true,
         array $formats = [],
-        string $defaultFormat = null
+        ?string $defaultFormat = null
     ) {
         parent::__construct($locator);
 

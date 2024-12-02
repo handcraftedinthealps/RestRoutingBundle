@@ -640,7 +640,7 @@ class RestActionReader
         return $annotations;
     }
 
-    private function addRoute(RestRouteCollection $collection, string $routeName, Route $route, bool $isCollection, bool $isInflectable, RouteAnnotation $annotation = null): void
+    private function addRoute(RestRouteCollection $collection, string $routeName, Route $route, bool $isCollection, bool $isInflectable, ?RouteAnnotation $annotation = null): void
     {
         if ($annotation && null !== $annotation->getName()) {
             $options = $annotation->getOptions();

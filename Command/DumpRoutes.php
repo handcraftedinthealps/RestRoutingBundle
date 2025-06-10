@@ -10,7 +10,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class GenerateRoutes extends Command
+class DumpRoutes extends Command
 {
     private RouterInterface $router;
 

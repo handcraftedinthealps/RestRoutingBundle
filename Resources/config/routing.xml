@@ -54,7 +54,7 @@
 
         <service id="handcraftedinthealps_rest_routing.inflector.doctrine" class="HandcraftedInTheAlps\RestRoutingBundle\Inflector\DoctrineInflector" public="false" />
 
-        <service id="handcraftedinthealps_rest_routing.command" class="HandcraftedInTheAlps\RestRoutingBundle\Command\GenerateRoutes">
+        <service id="handcraftedinthealps_rest_routing.command" class="HandcraftedInTheAlps\RestRoutingBundle\Command\DumpRoutes">
             <argument type="service" id="router" />
             <tag name="console.command" />
          </service>

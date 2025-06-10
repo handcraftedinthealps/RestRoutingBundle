@@ -14,6 +14,24 @@ This bundle provides the automatic route generation for the FOSRestBundle 3.0.
 
 All the installation instructions are located in the [documentation](Resources/doc/1-setting_up_the_bundle.rst).
 
+
+## Opt-out of the `type: rest` routing
+
+You might want to migrate away from this bundle and use normal Symfony routes.
+Via the command inside this bundle you can convert all `type: rest` routes to normal Symfony routes:
+
+```bash
+bin/console fos:rest:routing:dump-symfony-routes
+
+# filter by a specific controller
+bin/console fos:rest:routing:dump-symfony-routes --controller="your.controller.service"
+
+# filter by a specific name prefix
+bin/console fos:rest:routing:dump-symfony-routes --name-prefix="your_prefix."
+```
+
+Copy the result into a `routing.yaml` file of your choice.
+
 ## Switching from FOSRestBundle
 
 If you did before using the FOSRestBundle which removed the auto route generation the switch is easy.

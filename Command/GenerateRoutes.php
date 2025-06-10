@@ -20,7 +20,7 @@ class GenerateRoutes extends Command
     {
         $this->router = $router;
 
-        parent::__construct('fos-routing:generate-symfony');
+        parent::__construct('fos:rest:routing:dump-symfony-routes');
     }
 
     protected function configure(): void

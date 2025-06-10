@@ -14,7 +14,6 @@ This bundle provides the automatic route generation for the FOSRestBundle 3.0.
 
 All the installation instructions are located in the [documentation](Resources/doc/1-setting_up_the_bundle.rst).
 
-
 ## Opt-out of the `type: rest` routing
 
 You might want to migrate away from this bundle and use normal Symfony routes.

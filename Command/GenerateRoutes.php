@@ -6,6 +6,7 @@ namespace HandcraftedInTheAlps\RestRoutingBundle\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Routing\RouterInterface;
@@ -24,8 +25,27 @@ class GenerateRoutes extends Command
         parent::__construct('fos-routing:generate-symfony');
     }
 
+    protected function configure(): void
+    {
+        $this->addOption(
+            'name-prefix',
+            null,
+            InputOption::VALUE_REQUIRED,
+            'Only show routes whose name is starting with this string',
+        );
+        $this->addOption(
+            'controller-name',
+            null,
+            InputOption::VALUE_REQUIRED,
+            'Name of the controller to dump',
+        );
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $namePrefix = $input->getOption('name-prefix');
+        $controllerName = $input->getOption('controller-name');
+
         $routes = [];
         foreach ($this->router->getRouteCollection() as $name => $route) {
             $routeData = $route->__serialize();
@@ -55,16 +75,32 @@ class GenerateRoutes extends Command
                     unset($routeData[$key]);
                 }
             }
-            $routes[$name] = $routeData;
+
+            if ($this->filterMatches($name, $routeData, $namePrefix)) {
+                $routes[$name] = $routeData;
+            }
         }
 
         $targetPath = $this->projectDirectory . '/fos-routing.yaml';
-        $output->writleln(Yaml::dump($routes));
+        $output->writeln(Yaml::dump($routes));
 
         $io = new SymfonyStyle($input, $output);
 
         $io->info('If you do not like yaml. You can use the symplify/config-transformer package to change it into php.');
 
         return Command::SUCCESS;
+    }
+
+    private function filterMatches(string $name, array $data, ?string $namePrefix, ?string $controllerName): bool
+    {
+        if ($namePrefix !== null) {
+            return str_starts_with($name, $namePrefix);
+        }
+
+        if ($controllerName !== null) {
+            return $data['controller'] !== $controllerName;
+        }
+
+        return true;
     }
 }

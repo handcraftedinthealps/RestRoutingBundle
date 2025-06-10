@@ -32,22 +32,22 @@ class GenerateRoutes extends Command
             // Unset things that are probably defaulted by Symfony
             unset($routeData['options']['compiler_class']);
             unset($routeData['options']['utf8']);
-            if (\is_array($routeData['methods'] ?? null) && \count($routeData['methods']) === 1) {
-                 $routeData['methods'] = $routeData['methods'][0];
+            if (\is_array($routeData['methods'] ?? null) && 1 === \count($routeData['methods'])) {
+                $routeData['methods'] = $routeData['methods'][0];
             }
             $routeData['controller'] = $routeData['defaults']['_controller'] ?? '';
             unset($routeData['defaults']['_controller']);
             $routeData['format'] = $routeData['defaults']['_format'] ?? '';
             unset($routeData['defaults']['_controller']);
-            $defaults= $routeData['defaults'] ?? [];
-            $requirements= $routeData['requirements'] ?? [];
+            $defaults = $routeData['defaults'] ?? [];
+            $requirements = $routeData['requirements'] ?? [];
             unset($routeData['defaults']);
             unset($routeData['requirements']);
-            if ($defaults !== []) {
-                 $routeData['defaults'] = $defaults;
+            if ([] !== $defaults) {
+                $routeData['defaults'] = $defaults;
             }
-            if ($requirements !== []) {
-                 $routeData['requirements'] = $requirements;
+            if ([] !== $requirements) {
+                $routeData['requirements'] = $requirements;
             }
 
             foreach ($routeData as $key => $value) {
@@ -57,7 +57,6 @@ class GenerateRoutes extends Command
             }
             $routes[$name] = $routeData;
         }
-
 
         $targetPath = $this->projectDirectory . '/fos-routing.yaml';
         echo Yaml::dump($routes);

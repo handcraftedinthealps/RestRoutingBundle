@@ -85,11 +85,11 @@ class DumpRoutes extends Command
     private function filterMatches(string $name, array $data, ?string $namePrefix, ?string $controllerName): bool
     {
         if (null !== $namePrefix) {
-            return str_starts_with($name, $namePrefix);
+            return 0 === strpos($name, $namePrefix);
         }
 
         if (null !== $controllerName) {
-            return str_starts_with($data['controller'], $controllerName);
+            return 0 === strpos($data['controller'], $controllerName);
         }
 
         return true;

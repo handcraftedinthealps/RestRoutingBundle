@@ -91,12 +91,12 @@ class GenerateRoutes extends Command
 
     private function filterMatches(string $name, array $data, ?string $namePrefix, ?string $controllerName): bool
     {
-        if ($namePrefix !== null) {
+        if (null !== $namePrefix) {
             return str_starts_with($name, $namePrefix);
         }
 
-        if ($controllerName !== null) {
-            return $data['controller'] !== $controllerName;
+        if (null !== $controllerName) {
+            return str_starts_with($data['controller'], $controllerName);
         }
 
         return true;

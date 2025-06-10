@@ -59,7 +59,7 @@ class GenerateRoutes extends Command
         }
 
         $targetPath = $this->projectDirectory . '/fos-routing.yaml';
-        echo Yaml::dump($routes);
+        $output->writleln(Yaml::dump($routes));
 
         $io = new SymfonyStyle($input, $output);
 

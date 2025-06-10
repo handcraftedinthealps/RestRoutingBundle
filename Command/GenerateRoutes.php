@@ -73,7 +73,7 @@ class GenerateRoutes extends Command
                 }
             }
 
-            if ($this->filterMatches($name, $routeData, $namePrefix)) {
+            if ($this->filterMatches($name, $routeData, $namePrefix, $controllerName)) {
                 $routes[$name] = $routeData;
             }
         }

@@ -58,7 +58,6 @@ class GenerateRoutes extends Command
             $routes[$name] = $routeData;
         }
 
-        ksort($routes);
 
         $targetPath = $this->projectDirectory . '/fos-routing.yaml';
         file_put_contents($targetPath, Yaml::dump($routes));

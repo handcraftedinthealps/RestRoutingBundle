@@ -14,7 +14,7 @@ class GenerateRoutes extends Command
 {
     private RouterInterface $router;
 
-    public function __construct(string $projectDirectory, RouterInterface $router)
+    public function __construct(RouterInterface $router)
     {
         $this->router = $router;
 

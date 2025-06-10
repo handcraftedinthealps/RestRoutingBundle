@@ -80,10 +80,6 @@ class GenerateRoutes extends Command
 
         $output->writeln(Yaml::dump($routes));
 
-        $io = new SymfonyStyle($input, $output);
-
-        $io->info('If you do not like yaml. You can use the symplify/config-transformer package to change it into php.');
-
         return Command::SUCCESS;
     }
 

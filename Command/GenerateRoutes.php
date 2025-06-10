@@ -32,6 +32,9 @@ class GenerateRoutes extends Command
             // Unset things that are probably defaulted by Symfony
             unset($routeData['options']['compiler_class']);
             unset($routeData['options']['utf8']);
+            if (\is_array($routeData['methods'] ?? null) && \count($routeData['methods']) === 1) {
+                 $routeData['methods'] = $routeData['methods'][0];
+            }
             $routeData['controller'] = $routeData['defaults']['_controller'] ?? '';
             unset($routeData['defaults']['_controller']);
             $routeData['format'] = $routeData['defaults']['_format'] ?? '';

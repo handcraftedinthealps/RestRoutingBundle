@@ -37,6 +37,7 @@ class GenerateRoutes extends Command
             InputOption::VALUE_REQUIRED,
             'Name of the controller to dump',
         );
+        $this->setDescription('This is a list of all routes in the project. Please copy and paste the relevant routes to your config.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

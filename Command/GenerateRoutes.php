@@ -34,6 +34,8 @@ class GenerateRoutes extends Command
             unset($routeData['options']['utf8']);
             $routeData['controller'] = $routeData['defaults']['_controller'] ?? '';
             unset($routeData['defaults']['_controller']);
+            $routeData['format'] = $routeData['defaults']['_format'] ?? '';
+            unset($routeData['defaults']['_controller']);
 
             foreach ($routeData as $key => $value) {
                 if (!$value) {

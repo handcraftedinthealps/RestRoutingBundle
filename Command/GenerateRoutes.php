@@ -60,11 +60,9 @@ class GenerateRoutes extends Command
 
 
         $targetPath = $this->projectDirectory . '/fos-routing.yaml';
-        file_put_contents($targetPath, Yaml::dump($routes));
+        echo Yaml::dump($routes);
 
         $io = new SymfonyStyle($input, $output);
-        $io->note('Generated routes to: ' . $targetPath);
-        $io->comment('This is a list of all routes in the project. Please copy and paste the relevant routes to your config.');
 
         $io->info('If you do not like yaml. You can use the symplify/config-transformer package to change it into php.');
 

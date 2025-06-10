@@ -14,12 +14,10 @@ use Symfony\Component\Yaml\Yaml;
 
 class GenerateRoutes extends Command
 {
-    private string $projectDirectory;
     private RouterInterface $router;
 
     public function __construct(string $projectDirectory, RouterInterface $router)
     {
-        $this->projectDirectory = $projectDirectory;
         $this->router = $router;
 
         parent::__construct('fos-routing:generate-symfony');
@@ -81,7 +79,6 @@ class GenerateRoutes extends Command
             }
         }
 
-        $targetPath = $this->projectDirectory . '/fos-routing.yaml';
         $output->writeln(Yaml::dump($routes));
 
         $io = new SymfonyStyle($input, $output);
